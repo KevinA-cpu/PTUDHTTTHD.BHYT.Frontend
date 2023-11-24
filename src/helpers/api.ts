@@ -1,18 +1,17 @@
-import axios from 'axios';
-import { useQuery, useMutation } from 'react-query';
+import axios from "axios";
+import { useQuery, useMutation } from "react-query";
 
-const { VITE_API_PROTOCOL, VITE_API_DOMAIN, VITE_API_PORT, VITE_API_ROOTPATH } =
-  import.meta.env;
+const { VITE_API_PROTOCOL, VITE_API_DOMAIN, VITE_API_PORT, VITE_API_ROOT_PATH } = import.meta.env;
 
 const axiosInstance = axios.create({
-  baseURL: `${VITE_API_PROTOCOL}://${VITE_API_DOMAIN}:${VITE_API_PORT}/${VITE_API_ROOTPATH}`,
+  baseURL: `${VITE_API_PROTOCOL}://${VITE_API_DOMAIN}:${VITE_API_PORT}/${VITE_API_ROOT_PATH}`,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
-const useGetQuery = (url: string) => {
-  return useQuery(url, async () => {
+const useGetQuery = (queryKey: [string, ...unknown[]], url: string) => {
+  return useQuery(queryKey, async () => {
     const { data } = await axiosInstance.get(url);
     return data;
   });
@@ -40,19 +39,11 @@ const useDeleteMutation = (url: string) => {
 };
 
 const setAuthHeader = (accessToken: string) => {
-  axiosInstance.defaults.headers.common['Authorization'] =
-    'Bearer ' + accessToken;
+  axiosInstance.defaults.headers.common.Authorization = "Bearer " + accessToken;
 };
 
 const clearAuthHeader = () => {
-  delete axiosInstance.defaults.headers.common['Authorization'];
+  delete axiosInstance.defaults.headers.common.Authorization;
 };
 
-export {
-  useGetQuery,
-  usePostMutation,
-  usePutMutation,
-  useDeleteMutation,
-  setAuthHeader,
-  clearAuthHeader,
-};
+export { useGetQuery, usePostMutation, usePutMutation, useDeleteMutation, setAuthHeader, clearAuthHeader };
