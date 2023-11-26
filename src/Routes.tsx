@@ -1,10 +1,10 @@
 import { Route, Routes as ReactRouterDomRoutes } from "react-router-dom";
-import Home from "./pages/Home";
+import Landing from "./pages/Landing";
 
 function Routes() {
   return (
     <ReactRouterDomRoutes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Landing />} />
     </ReactRouterDomRoutes>
   );
 }
