@@ -29,6 +29,8 @@ function Header(): JSX.Element {
           <Button color="inherit">Đăng ký bảo hiểm</Button>
           <Button color="inherit">Thông tin</Button>
           <Button
+            component={Link}
+            to="/Login"
             variant="outlined"
             TouchRippleProps={{ style: { color: "white" } }}
             sx={{

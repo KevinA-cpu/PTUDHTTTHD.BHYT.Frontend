@@ -21,12 +21,12 @@ function Login(): JSX.Element {
         width: "100vw",
       }}
     >
-      <Title></Title>
+      <Title title="Đăng nhập" path="Trang chủ / Đăng nhập"></Title>
       <Box sx={{ display: "flex", mt: 5, px: 5 }}>
         <Container>
-          <img src={LoginImage} className="App-logo" alt="logo" height={550} />
+          <img src={LoginImage} className="App-logo" alt="logo" height={450} />
         </Container>
-        <Container className="InputField" sx={{ display: "flex", flexDirection: "column" }}>
+        <Container className="InputField" sx={{ display: "flex", flexDirection: "column", minWidth: "200px" }}>
           <Typography
             variant="h4"
             fontWeight={600}
@@ -35,7 +35,7 @@ function Login(): JSX.Element {
               padding: "20px",
             }}
           >
-            Đăng Nhập
+            Đăng nhập
           </Typography>
           <FormGroup>
             <TextField
@@ -65,7 +65,7 @@ function Login(): JSX.Element {
               <FormControlLabel control={<Checkbox defaultChecked />} label="ghi nhớ mật khẩu" />
               <Typography
                 sx={{
-                  fontSize: "20px",
+                  fontSize: "1em",
                   color: "#FF0000",
                   "&:hover": {
                     opacity: "70%",
@@ -83,7 +83,7 @@ function Login(): JSX.Element {
                 borderRadius: "10px",
                 my: 1,
                 height: "2.75em",
-                fontSize: "20px",
+                fontSize: "1em",
                 fontWeight: "600",
                 textTransform: "none",
               }}
@@ -104,7 +104,7 @@ function Login(): JSX.Element {
                 borderRadius: "10px",
                 my: 1,
                 height: "2.75em",
-                fontSize: "20px",
+                fontSize: "1em",
                 fontWeight: "600",
                 textTransform: "none",
               }}
@@ -120,6 +120,7 @@ function Login(): JSX.Element {
                 sx={{
                   color: "#4674CA",
                   fontSize: "inherit",
+                  mx: 1,
                   "&:hover": {
                     opacity: "70%",
                     cursor: "pointer",

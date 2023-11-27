@@ -1,6 +1,12 @@
 import { Box, Typography } from "@mui/material";
 
-function Title(): JSX.Element {
+interface TitleProps {
+  title: string;
+  path: string;
+}
+
+function Title(props: TitleProps): JSX.Element {
+  const { title, path } = props;
   return (
     <Box
       style={{
@@ -14,8 +20,8 @@ function Title(): JSX.Element {
         padding: " 0 1em 0 1em ",
       }}
     >
-      <Typography sx={{ fontSize: "32px" }}>Đăng Nhập</Typography>
-      <Typography sx={{ fontSize: "20px" }}>Trang chủ / Đăng nhập</Typography>
+      <Typography sx={{ fontSize: "1.5em" }}>{title}</Typography>
+      <Typography sx={{ fontSize: "1.5em" }}>{path}</Typography>
     </Box>
   );
 }
