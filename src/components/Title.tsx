@@ -17,7 +17,7 @@ function Title(props: TitleProps): JSX.Element {
         display: "flex",
         alignItems: "Center",
         justifyContent: "space-between",
-        padding: " 0 1em 0 1em ",
+        padding: " 0 2em 0 2em ",
       }}
     >
       <Typography sx={{ fontSize: "1.5em" }}>{title}</Typography>

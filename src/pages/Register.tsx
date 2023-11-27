@@ -1,19 +1,9 @@
-import {
-  Box,
-  FormControlLabel,
-  Checkbox,
-  FormGroup,
-  TextField,
-  Typography,
-  Button,
-  Divider,
-  Container,
-} from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, FormGroup, TextField, Typography, Button, Divider, Container } from "@mui/material";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import GoogleIcon from "@mui/icons-material/Google";
 import Title from "../components/Title";
 import LoginImage from "../assets/Login.png";
-import GoogleIcon from "@mui/icons-material/Google";
-function Login(): JSX.Element {
+function Register(): JSX.Element {
   return (
     <Box
       sx={{
@@ -21,7 +11,7 @@ function Login(): JSX.Element {
         mb: 5,
       }}
     >
-      <Title title="Đăng nhập" path="Trang chủ / Đăng nhập"></Title>
+      <Title title="Đăng ký" path="Trang chủ / Đăng ký"></Title>
       <Box sx={{ display: "flex", mt: 5, px: 5 }}>
         <Container>
           <img src={LoginImage} className="App-logo" alt="logo" height={450} />
@@ -35,12 +25,12 @@ function Login(): JSX.Element {
               padding: "20px",
             }}
           >
-            Đăng nhập
+            Đăng Ký
           </Typography>
           <FormGroup>
             <TextField
               id="outlined-basic"
-              label="Tên tài khoản / Email"
+              label="Tên đăng nhập "
               variant="outlined"
               sx={{
                 textAlign: "center",
@@ -61,22 +51,30 @@ function Login(): JSX.Element {
                 my: 1,
               }}
             />
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-              <FormControlLabel control={<Checkbox defaultChecked />} label="ghi nhớ mật khẩu" />
-              <Typography
-                sx={{
-                  fontSize: "1em",
-                  color: "#FF0000",
-                  "&:hover": {
-                    opacity: "70%",
-                    cursor: "pointer",
-                    textDecoration: "underline",
-                  },
-                }}
-              >
-                Quên mật khẩu?
-              </Typography>
-            </Box>
+            <TextField
+              id="outlined-basic"
+              label="Xác nhận mật khẩu"
+              type="password"
+              variant="outlined"
+              sx={{
+                textAlign: "center",
+                height: "60px",
+                borderRadius: "15px",
+                my: 1,
+              }}
+            />
+            <TextField
+              id="outlined-basic"
+              label="Email xác nhận"
+              type="email"
+              variant="outlined"
+              sx={{
+                textAlign: "center",
+                height: "60px",
+                borderRadius: "15px",
+                my: 1,
+              }}
+            />
             <Button
               sx={{
                 backgroundColor: "#FFCF63",
@@ -88,7 +86,7 @@ function Login(): JSX.Element {
                 textTransform: "none",
               }}
             >
-              Đăng nhập
+              Đăng ký
             </Button>
             <Box display="flex" justifyContent="center" sx={{ my: 2 }}>
               <Divider
@@ -97,26 +95,14 @@ function Login(): JSX.Element {
                 }}
               />
             </Box>
-            <Button
-              sx={{
-                backgroundColor: "black",
-                color: "#FFFFFF",
-                borderRadius: "10px",
-                my: 1,
-                height: "2.75em",
-                fontSize: "1em",
-                fontWeight: "600",
-                textTransform: "none",
-              }}
-            >
-              <GoogleIcon sx={{ color: "red", mx: 2 }}></GoogleIcon>
-              Hoặc đăng nhập với Google
-            </Button>
 
-            <Typography sx={{ my: 2, fontSize: "1rem" }}>
-              Chưa có tài khoản?
-              <Link to="/Register">Đăng ký tại đây</Link>
+            <Typography variant="h6" sx={{ textAlign: "center" }} gutterBottom>
+              Hoặc đăng nhập với
             </Typography>
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", mb: 2 }}>
+              <FacebookIcon sx={{ mx: 1, fontSize: "2em", color: "#1877F2" }}></FacebookIcon>
+              <GoogleIcon sx={{ mx: 1, fontSize: "2em", color: "#DB4437" }}></GoogleIcon>
+            </Box>
           </FormGroup>
         </Container>
       </Box>
@@ -124,4 +110,4 @@ function Login(): JSX.Element {
   );
 }
 
-export default Login;
+export default Register;
