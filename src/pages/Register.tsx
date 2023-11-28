@@ -2,19 +2,14 @@ import { Box, FormGroup, TextField, Typography, Button, Divider, Container } fro
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import Title from "../components/Title";
-import loginImage from "../assets/image/login.png";
+import loginImage from "../assets/images/login.png";
 function Register(): JSX.Element {
   return (
-    <Box
-      sx={{
-        width: "100vw",
-        mb: 5,
-      }}
-    >
+    <Box sx={{ width: "100%" }}>
       <Title title="Đăng ký" path="Trang chủ / Đăng ký"></Title>
       <Box sx={{ display: "flex", mt: 5, px: 5 }}>
         <Container>
-          <img src={loginImage} className="App-logo" alt="logo" height={450} />
+          <img src={loginImage} className="App-logo" alt="logo" />
         </Container>
         <Container className="InputField" sx={{ display: "flex", flexDirection: "column", minWidth: "200px" }}>
           <Typography

@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { AppBar, Typography, Button, Box, Container } from "@mui/material";
-import logo from "../assets/image/logo.png";
+import { AppBar, Typography, Button, Box, Toolbar } from "@mui/material";
+import logo from "../assets/images/logo.png";
 
 function Header(): JSX.Element {
   return (
     <AppBar position="static" sx={{ backgroundColor: "darkblue" }}>
-      <Container sx={{ display: "flex", justifyContent: "space-between", my: 1 }}>
+      <Toolbar sx={{ justifyContent: "space-between" }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: "2rem" }}>
           <Link to="/">
             <Button
@@ -30,7 +30,7 @@ function Header(): JSX.Element {
           <Button color="inherit">Thông tin</Button>
           <Button
             component={Link}
-            to="/Login"
+            to="/login"
             variant="outlined"
             TouchRippleProps={{ style: { color: "white" } }}
             sx={{
@@ -43,7 +43,7 @@ function Header(): JSX.Element {
             Đăng nhập
           </Button>
         </Box>
-      </Container>
+      </Toolbar>
     </AppBar>
   );
 }

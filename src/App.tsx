@@ -11,7 +11,7 @@ function App() {
       <CssBaseline />
       <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         <Header />
-        <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}>
+        <Box sx={{ flexGrow: 1, display: "flex" }}>
           <Routes />
         </Box>
         <Footer />

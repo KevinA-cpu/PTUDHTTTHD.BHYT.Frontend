@@ -1,10 +1,10 @@
-import { Box, Typography, Link, Divider, Container } from "@mui/material";
+import { Box, Typography, Link, Divider } from "@mui/material";
 import { LocationOn, Call } from "@mui/icons-material";
 
 function Footer(): JSX.Element {
   return (
     <Box sx={{ backgroundColor: "darkblue", color: "white" }}>
-      <Container sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
         <Box sx={{ display: "flex", flexDirection: "column", rowGap: "1rem", marginTop: "1rem" }}>
           <Typography variant="h6">Về chúng tôi</Typography>
           <Link href="#" color="inherit" underline="none">
@@ -65,7 +65,7 @@ function Footer(): JSX.Element {
             </Link>
           </Box>
         </Box>
-      </Container>
+      </Box>
     </Box>
   );
 }
