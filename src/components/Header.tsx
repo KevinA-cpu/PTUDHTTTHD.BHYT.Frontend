@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { AppBar, Typography, Button, Box, Container } from "@mui/material";
-import logo from "../assets/logo.png";
+import logo from "../assets/image/logo.png";
 
 function Header(): JSX.Element {
   return (
