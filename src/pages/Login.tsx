@@ -11,20 +11,15 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import Title from "../components/Title";
-import LoginImage from "../assets/image/login.png";
+import LoginImage from "../assets/images/login.png";
 import GoogleIcon from "@mui/icons-material/Google";
 function Login(): JSX.Element {
   return (
-    <Box
-      sx={{
-        width: "100vw",
-        mb: 5,
-      }}
-    >
+    <Box sx={{ width: "100%" }}>
       <Title title="Đăng nhập" path="Trang chủ / Đăng nhập"></Title>
       <Box sx={{ display: "flex", mt: 5, px: 5 }}>
         <Container>
-          <img src={LoginImage} className="App-logo" alt="logo" height={450} />
+          <img src={LoginImage} className="App-logo" alt="logo" />
         </Container>
         <Container className="InputField" sx={{ display: "flex", flexDirection: "column", minWidth: "200px" }}>
           <Typography
@@ -115,7 +110,7 @@ function Login(): JSX.Element {
 
             <Typography sx={{ my: 2, fontSize: "1rem" }}>
               Chưa có tài khoản?
-              <Link to="/Register">Đăng ký tại đây</Link>
+              <Link to="/register">Đăng ký tại đây</Link>
             </Typography>
           </FormGroup>
         </Container>
