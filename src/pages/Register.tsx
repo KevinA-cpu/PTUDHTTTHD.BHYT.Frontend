@@ -2,7 +2,7 @@ import { Box, FormGroup, TextField, Typography, Button, Divider, Container } fro
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import Title from "../components/Title";
-import LoginImage from "../assets/Login.png";
+import loginImage from "../assets/image/login.png";
 function Register(): JSX.Element {
   return (
     <Box
@@ -14,7 +14,7 @@ function Register(): JSX.Element {
       <Title title="Đăng ký" path="Trang chủ / Đăng ký"></Title>
       <Box sx={{ display: "flex", mt: 5, px: 5 }}>
         <Container>
-          <img src={LoginImage} className="App-logo" alt="logo" height={450} />
+          <img src={loginImage} className="App-logo" alt="logo" height={450} />
         </Container>
         <Container className="InputField" sx={{ display: "flex", flexDirection: "column", minWidth: "200px" }}>
           <Typography

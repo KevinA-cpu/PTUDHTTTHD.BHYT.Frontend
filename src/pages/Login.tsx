@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import Title from "../components/Title";
-import LoginImage from "../assets/Login.png";
+import LoginImage from "../assets/image/login.png";
 import GoogleIcon from "@mui/icons-material/Google";
 function Login(): JSX.Element {
   return (
