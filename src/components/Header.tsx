@@ -4,7 +4,7 @@ import logo from "../assets/images/logo.png";
 
 function Header(): JSX.Element {
   return (
-    <AppBar position="static" sx={{ backgroundColor: "darkblue" }}>
+    <AppBar position="static" sx={{ backgroundColor: "#0E4677" }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: "2rem" }}>
           <Link to="/">
@@ -26,7 +26,9 @@ function Header(): JSX.Element {
 
         <Box sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <Button color="inherit">Trang chủ</Button>
-          <Button color="inherit">Đăng ký bảo hiểm</Button>
+          <Button color="inherit" component={Link} to="/register-insurance">
+            Đăng ký bảo hiểm
+          </Button>
           <Button color="inherit">Thông tin</Button>
           <Button
             component={Link}
