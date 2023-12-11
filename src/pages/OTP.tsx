@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import otp from "../assets/images/otp.png";
+//import { Link } from "react-router-dom";
 
 function OTP(): JSX.Element {
   const [otpSent, setOtpSent] = useState(false);
@@ -31,6 +32,9 @@ function OTP(): JSX.Element {
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <TextField id="outlined-basic" label="OTP" type="password" variant="outlined" sx={{ mb: 3 }} />
               <Button
+                //component={Link}
+                //to="/changepassword"
+                //variant="outlined"
                 sx={{
                   backgroundColor: "#FFCF63",
                 }}

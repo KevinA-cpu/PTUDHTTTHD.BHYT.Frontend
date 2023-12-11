@@ -69,7 +69,7 @@ function Login(): JSX.Element {
                   },
                 }}
               >
-                Quên mật khẩu?
+                <Link to="/forgotpassword">Quên mật khẩu?</Link>
               </Typography>
             </Box>
             <Button
