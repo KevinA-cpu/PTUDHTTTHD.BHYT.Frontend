@@ -1,15 +1,29 @@
 import { create } from "zustand";
 
-interface State {
-  count: number;
-  increment: () => void;
-  decrement: () => void;
+interface IToken {
+  accessToken: string;
+  expiredAt: string;
+  issuedAt: string;
+  refreshToken: string;
 }
 
-export const useStore = create<State>((set) => ({
-  count: 0,
-  increment: () => set((state) => ({ count: state.count + 1 })),
-  decrement: () => set((state) => ({ count: state.count - 1 })),
+interface IAccount {
+  id: string;
+  username: string;
+}
+
+interface IState {
+  token: IToken | null;
+  account: IAccount | null;
+  setToken: (token: IToken | null) => void;
+  setAccount: (account: IAccount | null) => void;
+}
+
+export const useStore = create<IState>((set) => ({
+  token: null,
+  account: null,
+  setToken: (token) => set((state) => ({ ...state, token })),
+  setAccount: (account) => set((state) => ({ ...state, account })),
 }));
 
 export default useStore;

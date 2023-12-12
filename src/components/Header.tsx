@@ -1,8 +1,37 @@
-import { Link } from "react-router-dom";
-import { AppBar, Typography, Button, Box, Toolbar } from "@mui/material";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AppBar, Typography, Button, Box, Toolbar, IconButton, Menu, MenuItem, Divider } from "@mui/material";
+import { AccountCircle } from "@mui/icons-material";
 import logo from "../assets/images/logo.png";
+import { useStore } from "../app/store";
+import AuthService from "../services/authServices";
 
 function Header(): JSX.Element {
+  const navigate = useNavigate();
+  const { setAccount, setToken, account } = useStore((state) => state);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleMenu = (event: any) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    AuthService.logout();
+    setAccount(null);
+    setToken(null);
+    setAnchorEl(null);
+  };
+
+  const handleNavigate = (path: string) => {
+    navigate(path);
+    setAnchorEl(null);
+  };
+
   return (
     <AppBar position="static" sx={{ backgroundColor: "darkblue" }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -28,20 +57,34 @@ function Header(): JSX.Element {
           <Button color="inherit">Trang chủ</Button>
           <Button color="inherit">Đăng ký bảo hiểm</Button>
           <Button color="inherit">Thông tin</Button>
-          <Button
-            component={Link}
-            to="/login"
-            variant="outlined"
-            TouchRippleProps={{ style: { color: "white" } }}
-            sx={{
-              background: "gold",
-              "&:hover": {
-                backgroundColor: "gold",
-              },
-            }}
-          >
-            Đăng nhập
-          </Button>
+          {account ? (
+            <>
+              <IconButton onClick={handleMenu} color="inherit">
+                <AccountCircle />
+              </IconButton>
+              <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+                <MenuItem onClick={handleClose}>{account.username}</MenuItem>
+                <MenuItem onClick={() => handleNavigate("/payment-requests")}>Yêu cầu thanh toán</MenuItem>
+                <Divider />
+                <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
+              </Menu>
+            </>
+          ) : (
+            <Button
+              component={Link}
+              to="/login"
+              variant="outlined"
+              TouchRippleProps={{ style: { color: "white" } }}
+              sx={{
+                background: "gold",
+                "&:hover": {
+                  backgroundColor: "gold",
+                },
+              }}
+            >
+              Đăng nhập
+            </Button>
+          )}
         </Box>
       </Toolbar>
     </AppBar>

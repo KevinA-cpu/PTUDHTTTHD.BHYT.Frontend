@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import otp from "../assets/images/otp.png";
 
-function OTP(): JSX.Element {
+export default function OTP(): JSX.Element {
   const [otpSent, setOtpSent] = useState(false);
   return (
     <Box
@@ -62,5 +62,3 @@ function OTP(): JSX.Element {
     </Box>
   );
 }
-
-export default OTP;

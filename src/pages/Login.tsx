@@ -12,7 +12,7 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Title from "../components/Title";
 import LoginImage from "../assets/images/login.png";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -21,7 +21,9 @@ import * as Yup from "yup";
 import AuthService from "../services/authServices";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useStore } from "../app/store";
 function Login(): JSX.Element {
+  const { setAccount, setToken, account } = useStore((state) => state);
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
@@ -38,18 +40,18 @@ function Login(): JSX.Element {
     onSubmit: async (values) => {
       try {
         const response = await AuthService.login(values.username, values.password);
+        setAccount(response.account);
+        setToken(response.token);
         alert(response.message);
-        //return response;
       } catch (error) {
         console.log("Login Failed");
-      } finally {
-        //AuthService.logout();
       }
     },
   });
 
   return (
     <Box sx={{ width: "100%" }}>
+      {account && <Navigate to="/" />}
       <Title title="Đăng nhập" path="Trang chủ / Đăng nhập"></Title>
       <Box sx={{ display: "flex", mt: 5, px: 5 }}>
         <Container>
@@ -68,7 +70,7 @@ function Login(): JSX.Element {
               )}
               <TextField
                 id="outlined-basic"
-                label="Tên tài khoản / Email"
+                label="Tên tài khoản"
                 variant="outlined"
                 {...formik.getFieldProps("username")}
                 onChange={formik.handleChange}

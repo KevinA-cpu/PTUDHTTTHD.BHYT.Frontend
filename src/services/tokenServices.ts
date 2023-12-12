@@ -10,6 +10,8 @@ function checkValidToken() {
   const currentDate = new Date();
   if (token && expiredAt && currentDate.toISOString() < expiredAt) {
     return true;
+  } else if (!token && !expiredAt) {
+    return true;
   } else {
     return false;
   }

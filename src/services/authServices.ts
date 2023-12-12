@@ -12,7 +12,7 @@ class AuthService {
       password,
     };
     try {
-      const response = await postMethod("/login", data);
+      const response = await postMethod("/Login", data);
       setToLocalStorage("token", response.token.accessToken);
       setToLocalStorage("expiredAt", response.token.expiredAt);
       localStorage.setItem("username", utf8_to_b64(username));
