@@ -64,7 +64,7 @@ function Register(): JSX.Element {
         Email: values.email,
       };
       try {
-        const response = await postMethod("/register", body);
+        const response = await postMethod("/Register", body);
         console.log("register-response: ", response);
         alert(response.message);
       } catch (error) {
