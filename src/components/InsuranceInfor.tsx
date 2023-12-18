@@ -11,8 +11,23 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
-import { Box, Card, CardActions, CardContent, CardMedia, Grid } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+} from "@mui/material";
 import { Link } from "react-router-dom";
+import { CheckBox } from "@mui/icons-material";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -58,11 +73,11 @@ export default function InsuranceInformation() {
           <Grid item xs={9}>
             <List sx={{ marginLeft: "8rem", mr: 1, height: "100%", backgroundColor: "#f7f7f7", pb: 5 }}>
               <Box sx={{ mt: 5, mx: 1 }}>
-                <Typography variant="h6">Bảo hiểm sức khỏe gia đình</Typography>
+                <Typography variant="h6">Bảo hiểm sức khỏe cơ bản</Typography>
                 <Typography variant="body1" sx={{ ml: 1 }}>
-                  - Mô tả: Bảo hiểm sức khỏe gia đình cung cấp bảo vệ cho toàn bộ gia đình trong trường hợp cần điều trị
-                  y tế hoặc chăm sóc sức khỏe. Gói bảo hiểm này bao gồm các khoản bồi thường cho chi phí y tế, thuốc
-                  men, khám chữa bệnh, và các dịch vụ khám sức khỏe định kỳ.
+                  - Mô tả: Bảo hiểm sức khỏe cung cấp bảo vệ cho cá nhân mua bảo hiểm trong trường hợp cần điều trị y tế
+                  hoặc chăm sóc sức khỏe. Gói bảo hiểm này bao gồm các khoản bồi thường cho chi phí y tế, thuốc men,
+                  khám chữa bệnh, và các dịch vụ khám sức khỏe định kỳ.
                 </Typography>
 
                 <Typography variant="h6" sx={{ mt: 2 }}>
@@ -81,14 +96,7 @@ export default function InsuranceInformation() {
                   - Khám sức khỏe định kỳ: Bảo hiểm cung cấp khoản bồi thường cho các cuộc khám sức khỏe định kỳ, giúp
                   phát hiện sớm các vấn đề sức khỏe và tăng cường phòng ngừa bệnh tật.{" "}
                 </Typography>
-                <Typography variant="body1" sx={{ ml: 1 }}>
-                  - Điều trị nước ngoài: Bảo hiểm bao gồm chi phí điều trị y tế khi bạn đi du lịch hoặc sống tại nước
-                  ngoài.{" "}
-                </Typography>
-                <Typography variant="body1" sx={{ ml: 1 }}>
-                  - Chăm sóc nha khoa và mắt: Bảo hiểm bồi thường một phần hoặc toàn bộ chi phí chăm sóc nha khoa và
-                  mắt, bao gồm cả việc khám, làm răng, và mua kính hoặc ống kính áp tròng.{" "}
-                </Typography>
+
                 <Typography variant="body1" sx={{ ml: 1 }}>
                   - Phạm vi bảo hiểm: Gói bảo hiểm này bao gồm các vấn đề sức khỏe thông thường như bệnh tật, tai nạn,
                   nội khoa, ngoại khoa, và các dịch vụ chăm sóc sức khỏe khác theo quy định của chính sách.
@@ -111,15 +119,15 @@ export default function InsuranceInformation() {
                   Điều kiện và loại trừ:
                 </Typography>
                 <Typography variant="body1" sx={{ ml: 1 }}>
-                  - Để đảm bảo tính minh bạch, chính sách cần liệt kê rõ ràng các điều kiện và trường hợp không được bảo
-                  hiểm, ví dụ như các bệnh mãn tính, bệnh lý di truyền, và các hành động tự tử.
+                  - Chính sách chúng tôi sẽ liệt kê rõ ràng các điều kiện và trường hợp không được bảo hiểm, ví dụ như
+                  các bệnh mãn tính, bệnh lý di truyền, và các hành động tự tử.
                 </Typography>
 
                 <Typography variant="h6" sx={{ mt: 2 }}>
                   Quy trình yêu cầu giải quyết bồi thường:
                 </Typography>
                 <Typography variant="body1" sx={{ ml: 1 }}>
-                  - Chính sách cần cung cấp hướng dẫn về quy trình và thủ tục để yêu cầu bồi thường khi có yêu cầu bồi
+                  - Chính sách cung cấp hướng dẫn về quy trình và thủ tục để yêu cầu bồi thường khi có yêu cầu bồi
                   thường. Điều này bao gồm việc liên hệ với công ty bảo hiểm, cung cấp các tài liệu và thông tin cần
                   thiết, và tuân thủ quy trình xử lý yêu cầu bồi thường.
                 </Typography>
@@ -131,18 +139,10 @@ export default function InsuranceInformation() {
                   - Chính sách bảo hiểm sức khỏe sẽ đưa ra các điều khoản và điều kiện cụ thể, bao gồm cả các quy định
                   về chính sách hủy bỏ, chuyển nhượng, và điều chỉnh phạm vi bảo hiểm.
                 </Typography>
-
-                <Typography variant="h6" sx={{ mt: 2 }}>
-                  Liên hệ:
-                </Typography>
-                <Typography variant="body1" sx={{ ml: 1 }}>
-                  - Cung cấp thông tin liên hệ với công ty bảo hiểm, bao gồm số điện thoại, địa chỉ và email, để khách
-                  hàng có thể liên hệ để tư vấn và hỗ trợ.
-                </Typography>
               </Box>
 
               <Divider sx={{ my: 3 }} />
-              <Typography variant="h6" sx={{ my: 1 }}>
+              <Typography variant="h5" sx={{ my: 1, ml: 1 }}>
                 Tài liệu bạn nên tham khảo
               </Typography>
               <ul>
@@ -168,10 +168,74 @@ export default function InsuranceInformation() {
                   </Link>
                 </li>
               </ul>
+              <Divider sx={{ my: 3 }} />
+              <Typography variant="h5" sx={{ ml: 1, mb: 2, mt: 3 }}>
+                Tìm hiểu thêm
+              </Typography>
+              <Box sx={{ mx: 5 }}>
+                <form>
+                  <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+                    <TextField type="text" variant="outlined" color="secondary" label="Họ Tên" fullWidth required />
+                    <TextField
+                      type="text"
+                      variant="outlined"
+                      color="secondary"
+                      label="Số Điện Thoại"
+                      fullWidth
+                      required
+                    />
+                  </Stack>
+                  <Stack spacing={2} direction="row" sx={{ mb: 4 }}>
+                    <TextField type="email" variant="outlined" color="secondary" label="Email (Nếu có)" fullWidth />
+
+                    <FormControl fullWidth>
+                      <InputLabel id="adress-select-label">Địa điểm</InputLabel>
+                      <Select labelId="adress-select-label" id="adress-select" label="Địa điểm">
+                        <MenuItem value={1}>Đà Đẵng</MenuItem>
+                        <MenuItem value={2}>Hồ Chí Minh</MenuItem>
+                        <MenuItem value={3}>Hà Nội</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Stack>
+                  <Stack spacing={2} direction="row" sx={{ mb: 4 }}>
+                    <TextField id="outlined-multiline-static" label="Ghi Chú" multiline rows={3} fullWidth />
+                  </Stack>
+                  <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+                    <FormControlLabel control={<CheckBox />} label="" />
+                    <Typography variant="body1">
+                      Tôi đồng ý cho BHYT Life Việt Nam sử dụng thông tin được cung cấp trên đây để kết nối với Tư vấn
+                      Tài chính phù hợp, đồng thời phục vụ cho việc đánh giá, tối ưu hóa các chương trình Marketing.{" "}
+                      <a href="#">Tìm hiểu thêm.</a>
+                    </Typography>
+                  </Stack>
+                  <Button variant="outlined" color="secondary" type="submit" sx={{ px: "4rem", py: 1 }}>
+                    Gửi thông tin
+                  </Button>
+                </form>
+              </Box>
             </List>
           </Grid>
           <Grid item xs={3}>
             <List sx={{ mt: 3, marginRight: "8rem", ml: 1, height: "500px" }}>
+              <Card sx={{ maxWidth: 345, my: 5 }}>
+                <CardMedia
+                  sx={{ height: 140 }}
+                  image="https://images.pexels.com/photos/3184429/pexels-photo-3184429.jpeg?auto=compress&cs=tinysrgb&w=600"
+                  title="green iguana"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    Insurance WAO
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Thương hiệu Bảo hiểm Nhân thọ tốt nhất tại Việt Nam năm 2023
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small">Share</Button>
+                  <Button size="small">Learn More</Button>
+                </CardActions>
+              </Card>
               <Card sx={{ maxWidth: 345, my: 5 }}>
                 <CardMedia
                   sx={{ height: 140 }}
@@ -183,8 +247,9 @@ export default function InsuranceInformation() {
                     Insurance Policy
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all
-                    continents except Antarctica
+                    Công ty Bảo hiểm WAO được vinh danh vì dịch vụ xuất sắc.Giải thưởng và đánh giá tích cực từ khách
+                    hàng và ngành công nghiệp. Chất lượng dịch vụ, sự tận tâm với khách hàng, quy trình đền bù nhanh
+                    chóng và hiệu quả.
                   </Typography>
                 </CardContent>
                 <CardActions>
