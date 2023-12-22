@@ -8,6 +8,9 @@ import {
   Button,
   Divider,
   Container,
+  Alert,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import Title from "../components/Title";
@@ -15,9 +18,13 @@ import LoginImage from "../assets/images/login.png";
 import GoogleIcon from "@mui/icons-material/Google";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
-import login_service from "../helpers/login_service";
+import AuthService from "../helpers/authentication";
+import { useState } from "react";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 function Login(): JSX.Element {
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -30,7 +37,7 @@ function Login(): JSX.Element {
 
     onSubmit: async (values) => {
       try {
-        const response = await login_service.login(values.username, values.password);
+        const response = await AuthService.login(values.username, values.password);
         alert(response.data.message);
         //return response;
       } catch (error) {
@@ -40,6 +47,7 @@ function Login(): JSX.Element {
       }
     },
   });
+
   return (
     <Box sx={{ width: "100%" }}>
       <Title title="Đăng nhập" path="Trang chủ / Đăng nhập"></Title>
@@ -53,6 +61,11 @@ function Login(): JSX.Element {
           </Typography>
           <form onSubmit={formik.handleSubmit}>
             <FormGroup>
+              {formik.errors.username && formik.touched.username && (
+                <Alert severity="error">
+                  <strong>{formik.errors.username}</strong>
+                </Alert>
+              )}
               <TextField
                 id="outlined-basic"
                 label="Tên tài khoản / Email"
@@ -63,32 +76,37 @@ function Login(): JSX.Element {
                   textAlign: "center",
                   height: "60px",
                   borderRadius: "15px",
-                  my: 1,
+                  mt: 1,
+                  mb: 3,
                 }}
               />
-              {formik.errors.username && formik.touched.username && (
-                <Box sx={{ backgroundColor: "#ffcccc", padding: "8px", borderRadius: "4px" }}>
-                  <Typography variant="body1" sx={{ color: "#ff0000" }}>
-                    * {formik.errors.username}
-                  </Typography>
-                </Box>
+              {formik.errors.password && formik.touched.password && (
+                <Alert severity="error">
+                  <strong>{formik.errors.password}</strong>
+                </Alert>
               )}
+
               <TextField
-                id="outlined-basic"
                 label="Mật khẩu"
-                type="password"
                 variant="outlined"
+                type={showPassword ? "text" : "password"} // <-- This is where the magic happens
                 {...formik.getFieldProps("password")}
                 onChange={formik.handleChange}
-                sx={{ textAlign: "center", height: "60px", borderRadius: "15px", mt: 3 }}
+                InputProps={{
+                  // <-- This is where the toggle button is added.
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
-              {formik.errors.password && formik.touched.password && (
-                <Box sx={{ backgroundColor: "#ffcccc", padding: "8px", borderRadius: "4px" }}>
-                  <Typography variant="body1" sx={{ color: "#ff0000" }}>
-                    * {formik.errors.password}
-                  </Typography>
-                </Box>
-              )}
               <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2, mt: 2 }}>
                 <FormControlLabel control={<Checkbox defaultChecked />} label="ghi nhớ mật khẩu" />
                 <Typography

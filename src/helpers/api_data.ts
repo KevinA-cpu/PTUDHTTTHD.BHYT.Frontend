@@ -1,11 +1,15 @@
 import axios from "axios";
-axios.defaults.baseURL = "https://localhost:7275/api/";
+import TokenService from "./token";
+
 class DataSevice {
   async getUserRole(username: string) {
     return await this.callGetApi("user/role", { username: `${username}` });
   }
   async callGetApi(endpoint: string, params: any) {
     try {
+      if (!TokenService.checkValidToken()) {
+        await TokenService.refreshToken();
+      }
       const token = JSON.parse(localStorage.getItem("token") ?? "{}");
       return axios
         .get(endpoint, {
@@ -28,6 +32,9 @@ class DataSevice {
 
   async callGetApiWithoutParams(endpoint: string) {
     try {
+      if (!TokenService.checkValidToken()) {
+        await TokenService.refreshToken();
+      }
       const token = JSON.parse(localStorage.getItem("token") ?? "{}");
       return axios
         .get(endpoint, {
@@ -46,6 +53,9 @@ class DataSevice {
 
   async callPostApi(endpoint: string, body: any) {
     try {
+      if (!TokenService.checkValidToken()) {
+        await TokenService.refreshToken();
+      }
       const token = JSON.parse(localStorage.getItem("token") ?? "{}");
       return axios
         .post(endpoint, body, {
