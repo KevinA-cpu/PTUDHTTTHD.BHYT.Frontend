@@ -1,13 +1,30 @@
-import { Box, FormGroup, TextField, Typography, Button, Divider, Container, Alert } from "@mui/material";
+import {
+  Box,
+  FormGroup,
+  TextField,
+  Typography,
+  Button,
+  Divider,
+  Container,
+  Alert,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import Title from "../components/Title";
 import loginImage from "../assets/images/login.png";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import DataSevice from "../helpers/api_services";
+import DataSevice from "../helpers/api_data";
+import { useState } from "react";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 function Register(): JSX.Element {
+  // Add these variables to your component to track the state
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -36,7 +53,7 @@ function Register(): JSX.Element {
 
     onSubmit: async (values) => {
       if (values.password != values.confirmPassword) {
-        alert("password not match!");
+        alert("confirm password is not match!");
         return;
       }
 
@@ -97,10 +114,12 @@ function Register(): JSX.Element {
                 id="outlined-basic"
                 label="Tên đăng nhập "
                 variant="outlined"
-                sx={{ textAlign: "center", height: "60px", borderRadius: "15px", mt: 1, mb: 2 }}
+                sx={{ mt: 1, mb: 2 }}
+                required
                 {...formik.getFieldProps("username")}
                 onChange={formik.handleChange}
               />
+
               {formik.errors.password && formik.touched.password && (
                 <Alert severity="error">
                   <strong>{formik.errors.password}</strong>
@@ -108,13 +127,27 @@ function Register(): JSX.Element {
               )}
 
               <TextField
-                id="outlined-basic"
                 label="Mật khẩu"
-                type="password"
                 variant="outlined"
-                sx={{ textAlign: "center", height: "60px", borderRadius: "15px", mt: 1, mb: 2 }}
+                type={showPassword ? "text" : "password"} // <-- This is where the magic happens
+                sx={{ mt: 1, mb: 2 }}
                 {...formik.getFieldProps("password")}
                 onChange={formik.handleChange}
+                required
+                InputProps={{
+                  // <-- This is where the toggle button is added.
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
 
               <TextField
@@ -124,8 +157,9 @@ function Register(): JSX.Element {
                 variant="outlined"
                 {...formik.getFieldProps("confirmPassword")}
                 required
-                sx={{ textAlign: "center", height: "60px", borderRadius: "15px", mt: 1, mb: 2 }}
+                sx={{ mt: 1, mb: 2 }}
               />
+
               {formik.errors.email && formik.touched.email && (
                 <Alert severity="error">
                   <strong>{formik.errors.email}</strong>
@@ -136,9 +170,10 @@ function Register(): JSX.Element {
                 label="Email xác nhận"
                 type="email"
                 variant="outlined"
-                sx={{ textAlign: "center", height: "60px", borderRadius: "15px", mt: 1, mb: 2 }}
+                sx={{ mt: 1, mb: 2 }}
                 {...formik.getFieldProps("email")}
                 onChange={formik.handleChange}
+                required
               />
 
               <Button
@@ -162,7 +197,6 @@ function Register(): JSX.Element {
                   }}
                 />
               </Box>
-
               <Typography variant="h6" sx={{ textAlign: "center" }} gutterBottom>
                 Hoặc đăng nhập với
               </Typography>
