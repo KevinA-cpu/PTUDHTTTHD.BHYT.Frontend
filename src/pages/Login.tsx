@@ -18,7 +18,7 @@ import LoginImage from "../assets/images/login.png";
 import GoogleIcon from "@mui/icons-material/Google";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import AuthService from "../helpers/authentication";
+import AuthService from "../services/authServices";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 function Login(): JSX.Element {
@@ -38,12 +38,12 @@ function Login(): JSX.Element {
     onSubmit: async (values) => {
       try {
         const response = await AuthService.login(values.username, values.password);
-        alert(response.data.message);
+        alert(response.message);
         //return response;
       } catch (error) {
-        alert("Login Failed");
+        console.log("Login Failed");
       } finally {
-        //login_service.logout();
+        //AuthService.logout();
       }
     },
   });

@@ -1,6 +1,5 @@
 import axios from "axios";
-import { useQuery, useMutation } from "react-query";
-
+import { checkValidToken, refreshToken } from "../services/tokenServices";
 const { VITE_API_PROTOCOL, VITE_API_DOMAIN, VITE_API_PORT, VITE_API_ROOT_PATH } = import.meta.env;
 
 const axiosInstance = axios.create({
@@ -10,33 +9,73 @@ const axiosInstance = axios.create({
   },
 });
 
-const useGetQuery = (queryKey: [string, ...unknown[]], url: string) => {
-  return useQuery(queryKey, async () => {
-    const { data } = await axiosInstance.get(url);
-    return data;
-  });
-};
+async function getMethod(endpoint: string, params?: any) {
+  try {
+    if (!checkValidToken()) {
+      await refreshToken();
+    }
+    const response = await axiosInstance.get(endpoint, { params: params });
+    return response.data;
+  } catch (error: any) {
+    const errorResponseMessage = error.response.data.message;
+    if (errorResponseMessage) {
+      alert(errorResponseMessage);
+    }
+    console.error("Axios GET error:", error);
+    throw error;
+  }
+}
 
-const usePostMutation = (url: string, data: any) => {
-  return useMutation(async () => {
-    const { data: responseData } = await axiosInstance.post(url, data);
-    return responseData;
-  });
-};
+async function putMethod(endpoint: string, data: any) {
+  try {
+    if (!checkValidToken()) {
+      await refreshToken();
+    }
+    const response = await axiosInstance.put(endpoint, data);
+    return response.data;
+  } catch (error: any) {
+    console.error("Axios PUT error:", error);
+    const errorResponseMessage = error.response.data.message;
+    if (errorResponseMessage) {
+      alert(errorResponseMessage);
+    }
+    throw error;
+  }
+}
 
-const usePutMutation = (url: string, data: any) => {
-  return useMutation(async () => {
-    const { data: responseData } = await axiosInstance.put(url, data);
-    return responseData;
-  });
-};
+async function postMethod(endpoint: string, data: any, config?: any) {
+  try {
+    if (!checkValidToken()) {
+      await refreshToken();
+    }
+    const response = await axiosInstance.post(endpoint, data, config);
+    return response.data;
+  } catch (error: any) {
+    console.error("Axios POST error:", error);
+    const errorResponseMessage = error.response.data.message;
+    if (errorResponseMessage) {
+      alert(errorResponseMessage);
+    }
+    throw error;
+  }
+}
 
-const useDeleteMutation = (url: string) => {
-  return useMutation(async () => {
-    const { data } = await axiosInstance.delete(url);
-    return data;
-  });
-};
+async function deleteMethod(endpoint: string) {
+  try {
+    if (!checkValidToken()) {
+      await refreshToken();
+    }
+    const response = await axiosInstance.delete(endpoint);
+    return response.data; // If applicable, return deleted data
+  } catch (error: any) {
+    const errorResponseMessage = error.response.data.message;
+    if (errorResponseMessage) {
+      alert(errorResponseMessage);
+    }
+    console.error("Axios DELETE error:", error);
+    throw error;
+  }
+}
 
 const setAuthHeader = (accessToken: string) => {
   axiosInstance.defaults.headers.common.Authorization = "Bearer " + accessToken;
@@ -46,4 +85,4 @@ const clearAuthHeader = () => {
   delete axiosInstance.defaults.headers.common.Authorization;
 };
 
-export { useGetQuery, usePostMutation, usePutMutation, useDeleteMutation, setAuthHeader, clearAuthHeader };
+export { getMethod, putMethod, postMethod, deleteMethod, setAuthHeader, clearAuthHeader };
