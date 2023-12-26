@@ -16,7 +16,8 @@ import Title from "../components/Title";
 import loginImage from "../assets/images/login.png";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import DataSevice from "../helpers/api_data";
+// import DataSevice from "../helpers/api_data";
+import { postMethod } from "../helpers/api";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
@@ -63,25 +64,12 @@ function Register(): JSX.Element {
         Email: values.email,
       };
       try {
-        await DataSevice.callPostApi("register", body).then(
-          (response) => {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-            alert(response?.data.message);
-            values.email = "";
-            values.username = "";
-            values.confirmPassword = "";
-            values.password = "";
-          },
-          (error: { response: { data: string } }) => {
-            console.log("hediedi: ", error);
-            const errorMessage: string = error.response.data;
-            console.log(errorMessage);
-            alert(errorMessage);
-          }
-        );
+        const response = await postMethod("/register", body);
+        console.log("register-response: ", response);
+        alert(response.message);
       } catch (error) {
         console.log(error);
-        alert("server error!!");
+        alert("register failed !");
       }
     },
   });
