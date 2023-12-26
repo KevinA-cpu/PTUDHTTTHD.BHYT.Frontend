@@ -4,13 +4,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Routes from "./Routes";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import axios from "axios";
-import { useEffect } from "react";
+
 function App() {
-  useEffect(() => {
-    // Đặt baseURL của Axios
-    axios.defaults.baseURL = "https://localhost:7275/api/";
-  }, []);
   return (
     <BrowserRouter>
       <CssBaseline />
