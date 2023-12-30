@@ -65,6 +65,10 @@ function Header(): JSX.Element {
               <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
                 <MenuItem onClick={handleClose}>{account.username}</MenuItem>
                 <MenuItem onClick={() => handleNavigate("/payment-requests")}>Yêu cầu thanh toán</MenuItem>
+                <Link to="/employee/list-requirement">
+                  {" "}
+                  <MenuItem>Yêu cầu bảo hiểm</MenuItem>
+                </Link>
                 <Divider />
                 <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
               </Menu>
