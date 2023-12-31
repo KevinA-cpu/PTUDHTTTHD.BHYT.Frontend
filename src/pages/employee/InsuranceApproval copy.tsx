@@ -229,26 +229,30 @@ export default function InsuranceApprovalTable() {
   const [openPolicyDetailDialog, setOpenPolicyDetailDialog] = useState(false);
   const [customerHealthHistory, setCustomerHealthHistory] = useState<any>([]);
   const [customerInfor, setCustomerInfor] = useState<any>({});
-  const [refreshTable, setRefreshTable] = useState<boolean>(false);
-  const [refreshSelectedUserInfor, setRefreshSelectedUserInfor] = useState<boolean>(false);
 
-  const handleConfirmDialog = () => {
+  const handleConfirmDialog = async () => {
     console.log("selected: ", selected);
     if (selected.length === 0) {
       return;
     }
+    try {
+      await Promise.all(
+        selected.map(async (policyId) => {
+          try {
+            const response = await customerPolicyServices.rejectCustomerPolicy(policyId);
+            console.log("Response: ", response);
+          } catch (error: any) {
+            console.log("Error: ", error.message);
+          }
+        })
+      );
+      setSelected([]);
+      await getInsuranceApprovalList();
+      setOpenConfirmDialog(false);
+    } catch (error: any) {
+      console.log("Error: ", error.message);
+    }
 
-    selected.map(async (policyId) => {
-      try {
-        const response = await customerPolicyServices.rejectCustomerPolicy(policyId);
-        console.log("Response: ", response);
-      } catch (error: any) {
-        console.log("Error: ", error.message);
-      }
-    });
-    setSelected([]);
-    setRefreshTable(!refreshTable);
-    setOpenConfirmDialog(false);
     return;
   };
 
@@ -271,17 +275,18 @@ export default function InsuranceApprovalTable() {
 
   useEffect(() => {
     void getInsuranceApprovalList();
-  }, [refreshTable]);
+  }, []);
 
   useEffect(() => {
     console.log("Giá trị của openPolicyDetailDialog đã thay đổi:", openPolicyDetailDialog);
     if (openPolicyDetailDialog === true) {
       const userInfor = getCustomerInforByPolicyId(selected[0]);
       setCustomerInfor(userInfor);
+
       console.log("customerInfor :", customerInfor);
       void getCustomerHeathHistory();
     }
-  }, [refreshSelectedUserInfor]);
+  }, [openPolicyDetailDialog]);
 
   const getInsuranceApprovalList = async () => {
     try {
@@ -350,9 +355,10 @@ export default function InsuranceApprovalTable() {
 
   const handleIssueInsurancePolicyClick = () => {
     void issueInsurancePolicy();
-    setOpenPolicyDetailDialog(false);
-    setRefreshTable(!refreshTable);
-    setSelected([]);
+    handleClosePolicyDetailDialog();
+    alert("phê duyệt thành công !");
+
+    //await getInsuranceApprovalList();
   };
 
   const issueInsurancePolicy = async () => {
@@ -366,10 +372,8 @@ export default function InsuranceApprovalTable() {
         status: true,
         sex: policyTemp?.customerSex,
         birthday: policyTemp?.customerBirthday,
-        policyId: policyTemp?.policyID,
       };
-      const res = await customerPolicyServices.issueCustomerPolicy(body);
-      alert(res.message);
+      await customerPolicyServices.issueCustomerPolicy(body);
     } catch (error: any) {
       console.log(error.message);
     }
@@ -490,7 +494,6 @@ export default function InsuranceApprovalTable() {
           numSelected={selected.length}
           isOpenConfirmDialogForm={handleOpenConfirmDialog}
           isOpenReviewDialogForm={() => {
-            setRefreshSelectedUserInfor(!refreshSelectedUserInfor);
             setOpenPolicyDetailDialog(true);
           }}
         />
