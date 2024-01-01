@@ -14,6 +14,8 @@ import CompensationRequest from "./pages/CompensationRequest";
 import CustomerCompensations from "./pages/CustomerCompensations";
 import CompensationApproval from "./pages/employee/CompensationApproval";
 import ChangePassword from "./pages/ChangePassword";
+import InsuranceRegister from "./pages/InsuranceRegister";
+import InsuranceRegister2 from "./pages/InsuranceRegister2";
 function Routes() {
   return (
     <ReactRouterDomRoutes>
@@ -32,6 +34,8 @@ function Routes() {
       <Route path="/employee/list-payment-request" element={<AllPaymentRequests />} />
       <Route path="/employee/list-customer" element={<CustomerList />} />
       <Route path="/change-password" element={<ChangePassword />} />
+      <Route path="/register-insurance-1" element={<InsuranceRegister />} />
+      <Route path="/register-insurance-2" element={<InsuranceRegister2 />} />
     </ReactRouterDomRoutes>
   );
 }
