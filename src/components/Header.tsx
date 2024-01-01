@@ -55,7 +55,15 @@ function Header(): JSX.Element {
 
         <Box sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <Button color="inherit">Trang chủ</Button>
-          <Button color="inherit">Đăng ký bảo hiểm</Button>
+          <Button           
+              component={Link}
+              to="/register-insurance-1"
+              color= "inherit"
+              sx={{
+                "&:hover": {
+                  backgroundColor: "gold",
+                },
+              }}>Đăng ký bảo hiểm</Button>
           <Button color="inherit">Thông tin</Button>
           {account ? (
             <>

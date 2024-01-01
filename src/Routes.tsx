@@ -8,8 +8,9 @@ import PaymentRequests from "./pages/PaymentRequests";
 import InsuranceApproval from "./pages/employee/InsuranceApproval";
 import ApprovedInsurancePolicies from "./pages/employee/ApprovedInsurancePolicies";
 import AllPaymentRequests from "./pages/employee/AllPaymentRequests";
-import CustomerList from "./pages/employee/customer";
-
+import CustomerList from "./pages/employee/Customer";
+import InsuranceRegister from "./pages/InsuranceRegister";
+import InsuranceRegister2 from "./pages/InsuranceRegister2";
 function Routes() {
   return (
     <ReactRouterDomRoutes>
@@ -23,6 +24,8 @@ function Routes() {
       <Route path="/employee/list-approved-policy" element={<ApprovedInsurancePolicies />} />
       <Route path="/employee/list-payment-request" element={<AllPaymentRequests />} />
       <Route path="/employee/list-customer" element={<CustomerList />} />
+      <Route path="/register-insurance-1" element={<InsuranceRegister />} />
+      <Route path="/register-insurance-2" element={<InsuranceRegister2 />} />
     </ReactRouterDomRoutes>
   );
 }
