@@ -1,33 +1,31 @@
 import { Box, Typography, Button, Container } from "@mui/material";
 
+import Banner from '../components/Banner'
+import Quotes from "../components/quotes";
+import LandingCard from "../components/LandingCard";
+import LandingCard2 from "../components/LandingCard2";
 function Landing(): JSX.Element {
+
   return (
-    <Container
-      maxWidth="lg"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-      }}
-    >
-      <Typography variant="h2" component="h1" gutterBottom>
-        Lorem ipsum dolor sit amet
-      </Typography>
-      <Typography variant="h5" component="h2" gutterBottom>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Praesent sapien massa,
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Praesent sapien massa,
-        convallis a pellentesque nec, egestas non nisi. Donec rutrum congue leo eget malesuada.
-      </Typography>
-      <Box sx={{ display: "flex", gap: "2rem", mt: "2rem" }}>
-        <Button variant="contained">Lorem ipsum</Button>
-        <Button variant="outlined">Lorem ipsum</Button>
-      </Box>
-      <Box sx={{ width: "100%", height: "2px", my: "2rem", backgroundColor: "blue" }} />
+    <Container>
+    <Container    maxWidth="lg" 
+  >
+    <Banner/>
+    <Quotes/>
+    <LandingCard/>
+
+    <Container    maxWidth="lg" sx={{margin:"40px 0 40px 0", display:"flex", flexDirection:"column", justifyContent:'center',alignItems: "center"}}
+  >
+    <Typography variant="h4"> Tươi Sáng Hơn Trong Từng Khoảnh Khắc</Typography>
+    <Typography>Tương  lai tươi sáng là quá trình tận hưởng và trải nghiệm từng khoảnh khắc trong cuộc sống, là chủ động về tài chính, xây dựng và thực hiện kế hoạch cho chính mình.</Typography>
     </Container>
+    <Container    maxWidth="lg" sx={{margin:"40px 0 40px 0", display:"flex", flexDirection:"column", justifyContent:'center',alignItems: "center"}}>
+    <Typography variant="h4">Vì sao nên chọn VINA Life </Typography>
+    </Container>
+    <LandingCard2/>
+    </Container>
+
+  </Container>
   );
 }
 
