@@ -33,7 +33,7 @@ function Header(): JSX.Element {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "darkblue" }}>
+    <AppBar position="static" sx={{ backgroundColor: "#C6B09F" }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: "2rem" }}>
           <Link to="/">
