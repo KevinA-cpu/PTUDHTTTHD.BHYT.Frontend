@@ -1,4 +1,5 @@
 import LoginService from "./authServices";
+import { useStore } from "../app/store";
 import { setToLocalStorage, getFromLocalStorage } from "../helpers/localStorage";
 import { setAuthHeader, clearAuthHeader } from "../helpers/api";
 import * as api from "../helpers/api";
@@ -29,11 +30,13 @@ async function refreshToken() {
   try {
     const data = await api.postMethod("/login/renew-token", body);
     if (data.success === true) {
+      const { setToken } = useStore((state) => state);
       clearAuthHeader();
       setToLocalStorage("token", data.data.token);
       setToLocalStorage("expiredAt", data.data.refreshToken);
       setToLocalStorage("refreshToken", data.data.expiredAt);
       setAuthHeader(data.data.token);
+      setToken(data.data);
       alert("Renew Token successfully");
     } else {
       console.log(data.message);
