@@ -30,7 +30,6 @@ class AuthService {
   logout() {
     localStorage.removeItem("token");
     localStorage.clear();
-    console.log("aaaaaaaaaaaaa");
     clearAuthHeader();
   }
 

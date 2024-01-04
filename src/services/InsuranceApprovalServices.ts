@@ -1,8 +1,13 @@
 import { getMethod } from "../helpers/api";
 
 const getInsuranceApprovalList = async () => {
-  const response = await getMethod("/InsuranceApproval/list");
+  const response = await getMethod("/InsuranceApproval/request-list");
   return response;
 };
 
-export { getInsuranceApprovalList };
+const getApprovedPolicyList = async () => {
+  const response = await getMethod("/InsuranceApproval/approved-policy-detail");
+  return response;
+};
+
+export { getInsuranceApprovalList, getApprovedPolicyList };

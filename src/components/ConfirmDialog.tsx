@@ -17,6 +17,11 @@ export default function ConfirmDialog(props: ConfirmDialogProps) {
       onClose={onClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
+      PaperProps={{
+        style: {
+          marginTop: "-15vh",
+        },
+      }}
     >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>{message}</DialogContent>

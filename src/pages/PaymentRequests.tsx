@@ -77,86 +77,89 @@ function PaymentRequests(): JSX.Element {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-      }}
-    >
-      <Typography
-        variant="h4"
-        fontWeight={600}
+    <Box sx={{ width: "100%", mx: 3, mb: 5, mt: 2 }}>
+      {" "}
+      <Box
         sx={{
-          textAlign: "center",
-          padding: "20px",
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
         }}
       >
-        Yêu cầu thanh toán
-      </Typography>
-      <DataGrid
-        getRowId={(row) => row.guid}
-        rows={insurancePayment}
-        columns={columns}
-        onRowClick={(row) => {
-          void handleRowClick(row);
-        }}
-      />
-      <Modal open={open} onClose={handleClose}>
-        <Box sx={{ ...style, position: "relative" }}>
-          <IconButton sx={{ position: "absolute", top: 8, right: 8 }} onClick={handleClose}>
-            <Close />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ mb: 2, textAlign: "center" }}>
-            Chi tiết chính sách thanh toán
-          </Typography>
-          {selectedRow && customerPolicy && (
-            <Grid container spacing={5}>
-              <Grid item xs={6}>
-                <Typography>
-                  <strong>Công Ty: </strong> {customerPolicy.company}
-                </Typography>
-                <Typography>
-                  <strong>Loại bảo hiểm:</strong> {customerPolicy.coverageType}
-                </Typography>
-                <Typography>
-                  <strong>Mô tả bảo hiểm:</strong> {customerPolicy.description}
-                </Typography>
-                <Typography>
-                  <strong>Thời điểm yêu cầu:</strong> {new Date(customerPolicy.createdDate).toLocaleString()}
-                </Typography>
-                <Typography>
-                  <strong>Thời điểm bắt đầu:</strong> {new Date(customerPolicy.startDate).toLocaleString()}
-                </Typography>
-                <Typography>
-                  <strong>Thời điểm kết thúc:</strong> {new Date(customerPolicy.endDate).toLocaleString()}
-                </Typography>
+        <Typography
+          variant="h6"
+          fontWeight={600}
+          sx={{
+            textAlign: "center",
+            padding: "20px",
+          }}
+        >
+          Yêu cầu thanh toán
+        </Typography>
+        <DataGrid
+          getRowId={(row) => row.guid}
+          rows={insurancePayment}
+          columns={columns}
+          onRowClick={(row) => {
+            void handleRowClick(row);
+          }}
+        />
+        <Modal open={open} onClose={handleClose}>
+          <Box sx={{ ...style, position: "relative" }}>
+            <IconButton sx={{ position: "absolute", top: 8, right: 8 }} onClick={handleClose}>
+              <Close />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ mb: 2, textAlign: "center" }}>
+              Chi tiết chính sách thanh toán
+            </Typography>
+            {selectedRow && customerPolicy && (
+              <Grid container spacing={5}>
+                <Grid item xs={6}>
+                  <Typography>
+                    <strong>Công Ty: </strong> {customerPolicy.company}
+                  </Typography>
+                  <Typography>
+                    <strong>Loại bảo hiểm:</strong> {customerPolicy.coverageType}
+                  </Typography>
+                  <Typography>
+                    <strong>Mô tả bảo hiểm:</strong> {customerPolicy.description}
+                  </Typography>
+                  <Typography>
+                    <strong>Thời điểm yêu cầu:</strong> {new Date(customerPolicy.createdDate).toLocaleString()}
+                  </Typography>
+                  <Typography>
+                    <strong>Thời điểm bắt đầu:</strong> {new Date(customerPolicy.startDate).toLocaleString()}
+                  </Typography>
+                  <Typography>
+                    <strong>Thời điểm kết thúc:</strong> {new Date(customerPolicy.endDate).toLocaleString()}
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography>
+                    <strong>Trả theo:</strong> {customerPolicy.paymentOption ? "Tháng" : "Năm"}
+                  </Typography>
+                  <Typography>
+                    <strong>Trạng thái:</strong> {customerPolicy.status ? "Còn hạn" : "Hết hạn"}
+                  </Typography>
+                  <Typography>
+                    <strong>Số tiền bảo hiểm:</strong> {customerPolicy.premiumAmount}
+                  </Typography>
+                  <Typography>
+                    <strong>Số tiền được khấu trừ:</strong> {customerPolicy.deductibleAmount}
+                  </Typography>
+                </Grid>
               </Grid>
-              <Grid item xs={6}>
-                <Typography>
-                  <strong>Trả theo:</strong> {customerPolicy.paymentOption ? "Tháng" : "Năm"}
-                </Typography>
-                <Typography>
-                  <strong>Trạng thái:</strong> {customerPolicy.status ? "Còn hạn" : "Hết hạn"}
-                </Typography>
-                <Typography>
-                  <strong>Số tiền bảo hiểm:</strong> {customerPolicy.premiumAmount}
-                </Typography>
-                <Typography>
-                  <strong>Số tiền được khấu trừ:</strong> {customerPolicy.deductibleAmount}
-                </Typography>
-              </Grid>
-            </Grid>
-          )}
-          <Button
-            variant="contained"
-            onClick={handleClose}
-            sx={{ marginTop: "1rem", width: "100%", bgcolor: "#FFCF63" }}
-          >
-            Close
-          </Button>
-        </Box>
-      </Modal>
+            )}
+            <Button
+              variant="contained"
+              onClick={handleClose}
+              sx={{ marginTop: "1rem", width: "100%", bgcolor: "#FFCF63" }}
+            >
+              Close
+            </Button>
+          </Box>
+        </Modal>
+      </Box>
     </Box>
   );
 }

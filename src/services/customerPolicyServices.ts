@@ -13,7 +13,7 @@ const rejectCustomerPolicy = async (policyId: number) => {
 interface issueCustomerPolicyBody {
   paymentOption: boolean | undefined; // loại thanh toán true: Tháng, false : năm
   insuranceId: number | undefined;
-  description: string | null; //null
+  description: string | null;
   status: boolean | undefined;
   sex: string | undefined;
   birthday: string | undefined;
