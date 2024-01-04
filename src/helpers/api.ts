@@ -1,11 +1,15 @@
 import axios from "axios";
 import { checkValidToken, refreshToken } from "../services/tokenServices";
+import { getFromLocalStorage } from "./localStorage";
 const { VITE_API_PROTOCOL, VITE_API_DOMAIN, VITE_API_PORT, VITE_API_ROOT_PATH } = import.meta.env;
 
 const axiosInstance = axios.create({
   baseURL: `${VITE_API_PROTOCOL}://${VITE_API_DOMAIN}:${VITE_API_PORT}/${VITE_API_ROOT_PATH}`,
   headers: {
     "Content-Type": "application/json",
+    common: {
+      Authorization: "Bearer " + getFromLocalStorage("token"),
+    },
   },
 });
 
