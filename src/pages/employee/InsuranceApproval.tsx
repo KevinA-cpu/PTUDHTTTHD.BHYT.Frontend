@@ -27,7 +27,7 @@ import { stableSort, getComparator } from "../../helpers/sort";
 import * as insuranceApprovalServices from "../../services/InsuranceApprovalServices";
 import * as customerPolicyServices from "../../services/customerPolicyServices";
 import * as healthHistoryServices from "../../services/healthHistoryServices";
-
+import { Close } from "@mui/icons-material";
 import ConfirmDialog from "../../components/ConfirmDialog";
 interface Data {
   policyID: number;
@@ -281,6 +281,7 @@ export default function InsuranceApprovalTable() {
       console.log("customerInfor :", customerInfor);
       void getCustomerHeathHistory();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refreshSelectedUserInfor]);
 
   const getInsuranceApprovalList = async () => {
@@ -386,206 +387,219 @@ export default function InsuranceApprovalTable() {
 
   return (
     <Box sx={{ width: "100%", mx: 3, mb: 5, mt: 2 }}>
-      <ConfirmDialog
-        open={openConfirmDialog}
-        onClose={handleCloseConfirmDialog}
-        title="Xác nhận"
-        message="Bạn có chắc chắn muốn hủy phê duyệt các chính sách đã chọn ?"
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onConfirm={handleConfirmDialog}
-      />
-      <Dialog
-        open={openPolicyDetailDialog}
-        onClose={handleClosePolicyDetailDialog}
-        PaperProps={{
-          style: {
-            marginTop: "-5vh",
-            minHeight: "60vh",
-            minWidth: "55vw",
-            maxHeight: 700,
-          },
-        }}
-      >
-        <DialogTitle align="center" mb={1}>
-          Thông tin khách hàng
-        </DialogTitle>
-        <DialogContent>
-          <Stack spacing={5} direction="row" sx={{ marginBottom: 2 }}>
-            <Typography variant="body1">
-              <strong>Khách hàng:</strong>
-              {customerInfor.customerName}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Giới tính:</strong> {customerInfor.customerSex}
-            </Typography>
-          </Stack>
-          <Stack spacing={5} direction="row" sx={{ marginBottom: 2 }}>
-            <Typography variant="body1">
-              <strong>Ngày sinh:</strong>
-              {new Date(customerInfor.customerBirthday).toLocaleString().split(",")[0].trim()}
-            </Typography>
-          </Stack>
-          <Stack spacing={5} direction="row" sx={{ marginBottom: 2 }}>
-            <Typography variant="body1">
-              <strong>Địa chỉ:</strong> {customerInfor.customerAdrress}
-            </Typography>
-          </Stack>
-          <Stack spacing={5} direction="row" sx={{ marginBottom: 2 }}>
-            <Typography variant="body1">
-              <strong>SĐT:</strong> {customerInfor.customerPhone}
-            </Typography>
-          </Stack>
-          <Stack spacing={5} direction="row" sx={{ marginBottom: 2 }}>
-            <Typography variant="body1">
-              <strong>Email:</strong> {customerInfor.customerEmail}
-            </Typography>
-          </Stack>
-          <Stack spacing={5} direction="row" sx={{ marginBottom: 2 }}>
-            <Typography variant="body1">
-              <strong>Ngày bắt đầu:</strong> {new Date(customerInfor.startDate).toLocaleString().split(",")[0].trim()}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Ngày kết thúc:</strong> {new Date(customerInfor.endDate).toLocaleString().split(",")[0].trim()}
-            </Typography>
-          </Stack>
+      {rows.length != 0 ? (
+        <Box>
+          <ConfirmDialog
+            open={openConfirmDialog}
+            onClose={handleCloseConfirmDialog}
+            title="Xác nhận"
+            message="Bạn có chắc chắn muốn hủy phê duyệt các chính sách đã chọn ?"
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            onConfirm={handleConfirmDialog}
+          />
+          <Dialog
+            open={openPolicyDetailDialog}
+            onClose={handleClosePolicyDetailDialog}
+            PaperProps={{
+              style: {
+                marginTop: "-5vh",
+                minHeight: "60vh",
+                minWidth: "55vw",
+                maxHeight: 650,
+              },
+            }}
+          >
+            <IconButton sx={{ position: "absolute", top: 8, right: 8 }} onClick={handleClosePolicyDetailDialog}>
+              <Close />
+            </IconButton>
+            <DialogTitle sx={{ backgroundColor: "#2596be", color: "#fff" }} align="center" mb={1}>
+              Thông tin khách hàng
+            </DialogTitle>
+            <DialogContent>
+              <Stack spacing={5} direction="row" sx={{ marginBottom: 2 }}>
+                <Typography variant="body1">
+                  <strong>Khách hàng:</strong>
+                  {customerInfor.customerName}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Giới tính:</strong> {customerInfor.customerSex}
+                </Typography>
+              </Stack>
+              <Stack spacing={5} direction="row" sx={{ marginBottom: 2 }}>
+                <Typography variant="body1">
+                  <strong>Ngày sinh:</strong>
+                  {new Date(customerInfor.customerBirthday).toLocaleString().split(",")[0].trim()}
+                </Typography>
+              </Stack>
+              <Stack spacing={5} direction="row" sx={{ marginBottom: 2 }}>
+                <Typography variant="body1">
+                  <strong>Địa chỉ:</strong> {customerInfor.customerAdrress}
+                </Typography>
+              </Stack>
+              <Stack spacing={5} direction="row" sx={{ marginBottom: 2 }}>
+                <Typography variant="body1">
+                  <strong>SĐT:</strong> {customerInfor.customerPhone}
+                </Typography>
+              </Stack>
+              <Stack spacing={5} direction="row" sx={{ marginBottom: 2 }}>
+                <Typography variant="body1">
+                  <strong>Email:</strong> {customerInfor.customerEmail}
+                </Typography>
+              </Stack>
+              <Stack spacing={5} direction="row" sx={{ marginBottom: 2 }}>
+                <Typography variant="body1">
+                  <strong>Ngày bắt đầu:</strong>{" "}
+                  {new Date(customerInfor.startDate).toLocaleString().split(",")[0].trim()}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Ngày kết thúc:</strong>{" "}
+                  {new Date(customerInfor.endDate).toLocaleString().split(",")[0].trim()}
+                </Typography>
+              </Stack>
 
-          <Typography align="center" mb={2} variant="h6">
-            Lịch sử sức khỏe
-          </Typography>
-          <Stack spacing={5} direction="row" sx={{ marginBottom: 2 }}>
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="center">Ngày khám </TableCell>
-                    <TableCell align="center">Mã bệnh viện</TableCell>
-                    <TableCell align="center">Chuẩn đoán</TableCell>
-                    <TableCell align="center">Ghi chú</TableCell>
-                  </TableRow>
-                </TableHead>
+              <Typography align="center" mb={2} variant="h6">
+                Lịch sử sức khỏe
+              </Typography>
+              <Stack spacing={5} direction="row" sx={{ marginBottom: 2 }}>
+                <TableContainer component={Paper}>
+                  <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align="center">Ngày khám </TableCell>
+                        <TableCell align="center">Mã bệnh viện</TableCell>
+                        <TableCell align="center">Chuẩn đoán</TableCell>
+                        <TableCell align="center">Ghi chú</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {customerHealthHistory.map((row: any, index: number) => (
+                        <TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                          <TableCell align="left">{new Date(row.createdDate).toLocaleString()}</TableCell>
+                          <TableCell align="left">{row.hospitalNumber}</TableCell>
+                          <TableCell align="left">{row.diagnostic}</TableCell>
+                          <TableCell align="left">{row.note}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Stack>
+            </DialogContent>
+            <DialogActions>
+              <DialogActions>
+                <Button onClick={handleClosePolicyDetailDialog}>Đóng</Button>
+              </DialogActions>
+              <Button onClick={handleIssueInsurancePolicyClick}>Phát hành chính sách</Button>
+            </DialogActions>
+          </Dialog>
+
+          <Paper sx={{ width: "100%", mb: 2 }}>
+            <EnhancedTableToolbar
+              numSelected={selected.length}
+              isOpenConfirmDialogForm={handleOpenConfirmDialog}
+              isOpenReviewDialogForm={() => {
+                setRefreshSelectedUserInfor(!refreshSelectedUserInfor);
+                setOpenPolicyDetailDialog(true);
+              }}
+            />
+            <TableContainer sx={{ maxHeight: 500 }}>
+              <Table sx={{ minWidth: 750 }} stickyHeader aria-label="sticky table" size={dense ? "small" : "medium"}>
+                <EnhancedTableHead
+                  numSelected={selected.length}
+                  order={order}
+                  orderBy={orderBy}
+                  onSelectAllClick={handleSelectAllClick}
+                  onRequestSort={handleRequestSort}
+                  rowCount={rows.length}
+                />
                 <TableBody>
-                  {customerHealthHistory.map((row: any, index: number) => (
-                    <TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                      <TableCell align="left">{new Date(row.createdDate).toLocaleString()}</TableCell>
-                      <TableCell align="left">{row.hospitalNumber}</TableCell>
-                      <TableCell align="left">{row.diagnostic}</TableCell>
-                      <TableCell align="left">{row.note}</TableCell>
+                  {visibleRows.map((row, index) => {
+                    const isItemSelected = isSelected(row.policyID);
+                    const labelId = `enhanced-table-checkbox-${index}`;
+
+                    return (
+                      <TableRow
+                        hover
+                        onClick={(event) => handleRowClick(event, row.policyID)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={row.policyID}
+                        selected={isItemSelected}
+                        sx={{ cursor: "pointer" }}
+                      >
+                        <TableCell padding="checkbox" sx={{ width: "6rem" }}>
+                          <Checkbox
+                            color="primary"
+                            checked={isItemSelected}
+                            inputProps={{
+                              "aria-labelledby": labelId,
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell component="th" id={labelId} scope="row" padding="none">
+                          {row.customerName}
+                        </TableCell>
+                        <TableCell align="center">
+                          {new Date(row.customerBirthday).toLocaleString().split(",")[0].trim()}
+                        </TableCell>
+                        <TableCell align="center">{row.customerPhone}</TableCell>
+                        <TableCell align="center">{row.customerSex}</TableCell>
+                        <TableCell align="left">{row.insuranceName}</TableCell>
+                        <TableCell align="center">{new Date(row.createdDate).toLocaleString()}</TableCell>
+                        <TableCell align="center">
+                          <Box
+                            ml={9}
+                            sx={{
+                              width: "15px",
+                              height: "15px",
+                              borderRadius: "50%",
+                              backgroundColor: "orange",
+                            }}
+                          ></Box>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                  {emptyRows > 0 && (
+                    <TableRow
+                      style={{
+                        height: (dense ? 33 : 53) * emptyRows,
+                      }}
+                    >
+                      <TableCell colSpan={6} />
                     </TableRow>
-                  ))}
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>
-          </Stack>
-        </DialogContent>
-        <DialogActions>
-          <DialogActions>
-            <Button onClick={handleClosePolicyDetailDialog}>Đóng</Button>
-          </DialogActions>
-          <Button onClick={handleIssueInsurancePolicyClick}>Phát hành chính sách</Button>
-        </DialogActions>
-      </Dialog>
-
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar
-          numSelected={selected.length}
-          isOpenConfirmDialogForm={handleOpenConfirmDialog}
-          isOpenReviewDialogForm={() => {
-            setRefreshSelectedUserInfor(!refreshSelectedUserInfor);
-            setOpenPolicyDetailDialog(true);
-          }}
-        />
-        <TableContainer sx={{ maxHeight: 500 }}>
-          <Table sx={{ minWidth: 750 }} stickyHeader aria-label="sticky table" size={dense ? "small" : "medium"}>
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
             />
-            <TableBody>
-              {visibleRows.map((row, index) => {
-                const isItemSelected = isSelected(row.policyID);
-                const labelId = `enhanced-table-checkbox-${index}`;
-
-                return (
-                  <TableRow
-                    hover
-                    onClick={(event) => handleRowClick(event, row.policyID)}
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={row.policyID}
-                    selected={isItemSelected}
-                    sx={{ cursor: "pointer" }}
-                  >
-                    <TableCell padding="checkbox" sx={{ width: "6rem" }}>
-                      <Checkbox
-                        color="primary"
-                        checked={isItemSelected}
-                        inputProps={{
-                          "aria-labelledby": labelId,
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell component="th" id={labelId} scope="row" padding="none">
-                      {row.customerName}
-                    </TableCell>
-                    <TableCell align="center">
-                      {new Date(row.customerBirthday).toLocaleString().split(",")[0].trim()}
-                    </TableCell>
-                    <TableCell align="center">{row.customerPhone}</TableCell>
-                    <TableCell align="center">{row.customerSex}</TableCell>
-                    <TableCell align="left">{row.insuranceName}</TableCell>
-                    <TableCell align="center">{new Date(row.createdDate).toLocaleString()}</TableCell>
-                    <TableCell align="center">
-                      <Box
-                        ml={9}
-                        sx={{
-                          width: "15px",
-                          height: "15px",
-                          borderRadius: "50%",
-                          backgroundColor: "orange",
-                        }}
-                      ></Box>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-      <FormControlLabel
-        control={
-          <Switch
-            checked={dense}
-            onChange={(event) => {
-              setDense(event.target.checked);
-            }}
+          </Paper>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={dense}
+                onChange={(event) => {
+                  setDense(event.target.checked);
+                }}
+              />
+            }
+            label="Dense padding"
           />
-        }
-        label="Dense padding"
-      />
+        </Box>
+      ) : (
+        <Box sx={{ height: 300, display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <Typography>không có yêu cầu chính sách !</Typography>
+        </Box>
+      )}
     </Box>
   );
 }

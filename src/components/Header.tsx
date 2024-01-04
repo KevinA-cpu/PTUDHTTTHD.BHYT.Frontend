@@ -69,6 +69,10 @@ function Header(): JSX.Element {
                   {" "}
                   <MenuItem>Yêu cầu bảo hiểm</MenuItem>
                 </Link>
+                <Link to="/employee/list-approved-policy">
+                  {" "}
+                  <MenuItem>Chính sách phát hành</MenuItem>
+                </Link>
                 <Divider />
                 <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
               </Menu>
