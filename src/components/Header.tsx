@@ -65,14 +65,17 @@ function Header(): JSX.Element {
               <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
                 <MenuItem onClick={handleClose}>{account.username}</MenuItem>
                 <MenuItem onClick={() => handleNavigate("/payment-requests")}>Yêu cầu thanh toán</MenuItem>
-                <Link to="/employee/list-requirement">
-                  {" "}
-                  <MenuItem>Yêu cầu bảo hiểm</MenuItem>
-                </Link>
-                <Link to="/employee/list-approved-policy">
-                  {" "}
-                  <MenuItem>Chính sách phát hành</MenuItem>
-                </Link>
+
+                <MenuItem onClick={() => handleNavigate("/employee/list-requirement")}>Yêu cầu bảo hiểm</MenuItem>
+
+                <MenuItem onClick={() => handleNavigate("/employee/list-approved-policy")}>
+                  Chính sách phát hành
+                </MenuItem>
+
+                <MenuItem onClick={() => handleNavigate("/employee/list-payment-request")}>
+                  Thanhh toán của khách hàng
+                </MenuItem>
+
                 <Divider />
                 <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
               </Menu>

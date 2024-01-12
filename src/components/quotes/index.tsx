@@ -1,29 +1,23 @@
-import { Slide, Typography } from "@mui/material";
+import { Slide } from "@mui/material";
 import { Box } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { MessageText, PromotionsContainer } from "../../styles/quotes";
-import { Colors } from "../../styles/theme";
 
-const messages = [
-  "VINA Life- Vững vàng",
-  "VINA Life- Sống mới",
-  "Kế hoạch lạc quan",
-  
-];
+const messages = ["VINA Life- Vững vàng", "VINA Life- Sống mới", "Kế hoạch lạc quan"];
 export default function Quotes() {
   const containerRef = useRef();
   const [show, setShow] = useState(true);
-    const [messageIndex, setMessageIndex] = useState(0);
-    useEffect(() => {
-            setTimeout(() => {
-              setShow(false);
-            }, 3000);
+  const [messageIndex, setMessageIndex] = useState(0);
+  useEffect(() => {
+    setTimeout(() => {
+      setShow(false);
+    }, 3000);
     const intervalId = setInterval(() => {
       // get next message
       setMessageIndex((i) => (i + 1) % messages.length);
 
       // slide the message in
-        setShow(true);
+      setShow(true);
 
       setTimeout(() => {
         setShow(false);
@@ -47,9 +41,7 @@ export default function Quotes() {
         }}
       >
         <Box display="flex" justifyContent="center" alignItems="center">
-          <MessageText>
-            {messages[messageIndex]}
-          </MessageText>
+          <MessageText>{messages[messageIndex]}</MessageText>
         </Box>
       </Slide>
     </PromotionsContainer>

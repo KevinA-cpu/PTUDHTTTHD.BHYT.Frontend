@@ -2,8 +2,8 @@ import { Box, Button, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Colors } from "../theme";
 
-export const BannerContainer = styled(Box)(({  theme }) => ({
-    // position: "relative",
+export const BannerContainer = styled(Box)(({ theme }) => ({
+  // position: "relative",
   display: "flex",
   justifyContent: "center",
   width: "100%",
@@ -21,8 +21,8 @@ export const BannerContainer = styled(Box)(({  theme }) => ({
 }));
 
 export const BannerContent = styled(Box)(() => ({
-//   position: "absolute",
-//   zIndex: 1,
+  //   position: "absolute",
+  //   zIndex: 1,
 
   display: "flex",
   flexDirection: "column",
@@ -31,13 +31,13 @@ export const BannerContent = styled(Box)(() => ({
   padding: "30px",
 }));
 
-export const BannerImage = styled("img")(({ src, theme }) => ({
-//   src: `url(${src})`,
-//   backgroundImage: `url(${src})`,
-//   backgroundRepeat: "no-repeat",
-//   backgroundPosition: "center",
-//   width: "900px",
-width: "800px",
+export const BannerImage = styled("img")(({ theme }) => ({
+  //   src: `url(${src})`,
+  //   backgroundImage: `url(${src})`,
+  //   backgroundRepeat: "no-repeat",
+  //   backgroundPosition: "center",
+  //   width: "900px",
+  width: "800px",
   [theme.breakpoints.down("md")]: {
     width: "400px",
   },
@@ -47,14 +47,14 @@ width: "800px",
   },
 }));
 
-export const BannerTitle = styled(Typography)(({  theme }) => ({
+export const BannerTitle = styled(Typography)(({ theme }) => ({
   lineHeight: 1.5,
   fontSize: "72px",
   marginBottom: "20px",
-  fontWeight:"20px",
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '42px',    
-  }
+  fontWeight: "20px",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "42px",
+  },
 }));
 
 export const BannerDescription = styled(Typography)(({ theme }) => ({
