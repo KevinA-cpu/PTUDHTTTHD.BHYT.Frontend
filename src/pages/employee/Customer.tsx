@@ -43,7 +43,6 @@ interface customer {
 
 function CustomerList(): JSX.Element {
   const [customerList, setCustomerList] = useState<customer[]>([]);
-  const [selectedRow, setSelectedRow] = useState<any>(null);
   const [selectedRowList, setSelectedRowList] = useState<any>([]);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
@@ -142,12 +141,13 @@ function CustomerList(): JSX.Element {
     return true;
   };
 
-  const handleDisplayPurchasedPolicies = async (customerId: number) => {
+  const handleDisplayPurchasedPolicies = async () => {
     if (selectedRowList.length >= 2) {
       alert("vui lòng chọn duy nhất 1 khách hàng để xem ds bảo hiểm !");
       return;
     }
 
+    const customerId = selectedRowList[0];
     try {
       const response = await customerPolicyServices.getListCustomerPolicy(customerId);
       setPurchasedPolies(response);
@@ -239,7 +239,7 @@ function CustomerList(): JSX.Element {
           <Stack spacing={3} direction="row">
             <Button
               onClick={() => {
-                void handleDisplayPurchasedPolicies(selectedRow.id);
+                void handleDisplayPurchasedPolicies();
               }}
             >
               DS Bảo hiểm
@@ -277,10 +277,6 @@ function CustomerList(): JSX.Element {
         rows={customerList}
         columns={columns}
         checkboxSelection
-        pageSizeOptions={[10, 30]}
-        onRowClick={(row) => {
-          setSelectedRow(row);
-        }}
         onRowSelectionModelChange={(ids) => {
           setSelectedRowList(ids);
         }}
