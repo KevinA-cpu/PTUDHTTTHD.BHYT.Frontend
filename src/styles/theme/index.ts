@@ -1,6 +1,3 @@
-import { createTheme } from "@mui/material/styles";
-
-
 export const DrawerWidth = 250;
 
 export const Colors = {

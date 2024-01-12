@@ -1,6 +1,5 @@
-import { Box,Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { Colors } from "../theme";
 
 export const PromotionsContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up("md")]: {
@@ -15,7 +14,7 @@ export const PromotionsContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const MessageText = styled(Typography)(({ theme }) => ({
-     fontFamily: '"Montez", "cursive"',
+  fontFamily: '"Montez", "cursive"',
   [theme.breakpoints.up("md")]: {
     fontSize: "3rem",
   },

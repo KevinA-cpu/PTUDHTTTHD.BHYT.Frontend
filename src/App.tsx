@@ -1,11 +1,15 @@
 import { BrowserRouter } from "react-router-dom";
 import { Box } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
+import { useStore } from "./app/store";
+import { setAuthHeader } from "./helpers/api";
 import Routes from "./Routes";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 function App() {
+  const { token } = useStore((state) => state);
+  setAuthHeader(token?.accessToken ?? "");
   return (
     <BrowserRouter>
       <CssBaseline />

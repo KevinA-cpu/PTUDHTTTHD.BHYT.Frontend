@@ -1,5 +1,6 @@
 import * as insurancePaymentServices from "../services/insurancePaymentServices";
 import * as customerPolicyServices from "../services/customerPolicyServices";
+import * as paymentLinkServices from "../services/paymentLinkServices";
 import { useEffect, useState } from "react";
 import { Box, Button, Typography, Grid, Modal, IconButton } from "@mui/material";
 import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
@@ -37,6 +38,7 @@ interface IPaymentRequestsDetails {
   requestDate: string;
   amount: number;
   status: string;
+  note: string;
 }
 
 function PaymentRequests(): JSX.Element {
@@ -74,6 +76,18 @@ function PaymentRequests(): JSX.Element {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handlePayment = async () => {
+    try {
+      const response = await paymentLinkServices.createPaymentLink(account?.id ?? "", {
+        Amount: selectedRow?.amount,
+        ProductName: selectedRow?.note,
+      });
+      window.open(response.link);
+    } catch (error: any) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -159,6 +173,13 @@ function PaymentRequests(): JSX.Element {
             </Button>
           </Box>
         </Modal>
+        {!selectedRow?.status && (
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+            <Button variant="contained" sx={{ width: "20%", bgcolor: "#FFCF63" }} onClick={() => void handlePayment()}>
+              Thanh Toán
+            </Button>
+          </Box>
+        )}
       </Box>
     </Box>
   );

@@ -1,38 +1,20 @@
 import { useEffect, useState } from "react";
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import * as insuranceApprovalServices from "../../services/InsuranceApprovalServices";
+import * as insurancePaymentServices from "../../services/insurancePaymentServices";
 import { Stack } from "@mui/system";
 import { Close } from "@mui/icons-material";
-
-const columns: GridColDef[] = [
-  { field: "customerId", headerName: "Mã khách hàng", flex: 0.5, align: "center" },
-  { field: "customerName", headerName: "Tên khách hàng", flex: 1 },
-  { field: "insuranceName", headerName: "Gói bảo hiểm", flex: 1 },
-  { field: "paymentOpption", headerName: "Kỳ trả", flex: 0.5 },
-  {
-    field: "approvalDate",
-    headerName: "Ngày duyệt",
-    flex: 1,
-    valueFormatter: (params) => new Date(params.value).toLocaleString(),
-  },
-  {
-    field: "endDate",
-    headerName: "Ngày hết hạn",
-    flex: 1,
-    valueFormatter: (params) => new Date(params.value).toLocaleString(),
-  },
-  { field: "employeeName", headerName: "NV duyệt", flex: 1 },
-  {
-    field: "actions",
-    align: "center",
-    headerName: "Actions",
-    width: 130,
-    renderCell: () => {
-      return <Button>Chi tiết</Button>;
-    },
-  },
-];
 
 interface IApprovedPolicy {
   guid: string;
@@ -51,7 +33,38 @@ interface IApprovedPolicy {
 function ApprovedInsurancePolicies(): JSX.Element {
   const [approvedPolicyList, setApprovedPolicyList] = useState<IApprovedPolicy[]>([]);
   const [open, setOpen] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<any>({});
+  const [paymentRequest, setPaymentRequest] = useState<any>(null);
+  const [openCreatePayment, setOpenCreatePayment] = useState(false);
+  const [amount, setAmout] = useState<number>(0);
+  const columns: GridColDef[] = [
+    { field: "customerId", headerName: "Mã khách hàng", flex: 0.5, align: "center" },
+    { field: "customerName", headerName: "Tên khách hàng", flex: 1 },
+    { field: "insuranceName", headerName: "Gói bảo hiểm", flex: 1 },
+    { field: "paymentOpption", headerName: "Kỳ trả", flex: 0.5 },
+    {
+      field: "approvalDate",
+      headerName: "Ngày duyệt",
+      flex: 1,
+      valueFormatter: (params) => new Date(params.value).toLocaleString(),
+    },
+    {
+      field: "endDate",
+      headerName: "Ngày hết hạn",
+      flex: 1,
+      valueFormatter: (params) => new Date(params.value).toLocaleString(),
+    },
+    { field: "employeeName", headerName: "NV duyệt", flex: 1 },
+    {
+      field: "actions",
+      align: "center",
+      headerName: "Actions",
+      width: 130,
+      renderCell: () => {
+        return <Button onClick={() => setOpen(true)}>Chi tiết</Button>;
+      },
+    },
+  ];
+  const [selectedRow, setSelectedRow] = useState<any>(null);
   useEffect(() => {
     void getApprovedPolicyList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,8 +80,38 @@ function ApprovedInsurancePolicies(): JSX.Element {
     }
   };
 
+  const handleOpenCreatePayment = async () => {
+    try {
+      const response = await insurancePaymentServices.getPaymentRequest(selectedRow.row.customerId);
+      setPaymentRequest(response);
+      setOpenCreatePayment(true);
+    } catch (error: any) {
+      setOpenCreatePayment(true);
+    }
+  };
+
+  const handleCreatePaymentRequest = async (): Promise<void> => {
+    try {
+      await insurancePaymentServices.createPaymentRequest(selectedRow.row.customerId, {
+        PolicyId: selectedRow.row.policyId,
+        Amount: amount,
+        Status: false,
+        Type: "Thanh toán",
+        Note: `Thanh toán cho gói ${selectedRow.row.insuranceName}`,
+      });
+      alert("Tạo thanh toán thành công");
+      setOpenCreatePayment(false);
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleCloseCreatePayment = () => {
+    setOpenCreatePayment(false);
   };
   return (
     <Box sx={{ width: "100%", mx: 5, mb: 5, mt: 2 }}>
@@ -97,7 +140,6 @@ function ApprovedInsurancePolicies(): JSX.Element {
             onRowClick={(row) => {
               console.log(row);
               setSelectedRow(row);
-              setOpen(true);
               console.log("sêc:", selectedRow);
             }}
           />
@@ -204,6 +246,53 @@ function ApprovedInsurancePolicies(): JSX.Element {
             </Button>
           </DialogActions>
         </Dialog>
+      )}
+      {openCreatePayment && (
+        <Dialog open={openCreatePayment} onClose={handleCloseCreatePayment}>
+          <IconButton sx={{ position: "absolute", top: 8, right: 8 }} onClick={handleCloseCreatePayment}>
+            <Close />
+          </IconButton>
+          <DialogTitle sx={{ backgroundColor: "#2596be", color: "#fff" }} align="center" mb={1}>
+            Tạo Thanh Toán
+          </DialogTitle>
+          <DialogContent>
+            {paymentRequest ? (
+              <Typography>Khách hàng này đã có thanh toán</Typography>
+            ) : (
+              <TextField
+                sx={{ marginTop: 2 }}
+                label="Số tiền thanh toán"
+                variant="outlined"
+                value={amount}
+                onChange={(event) => setAmout(Number(event.target.value))}
+                fullWidth
+              />
+            )}
+          </DialogContent>
+          <DialogActions>
+            <DialogActions>
+              <Button
+                onClick={() => {
+                  setOpenCreatePayment(false);
+                }}
+              >
+                Đóng
+              </Button>
+              {!paymentRequest && <Button onClick={() => void handleCreatePaymentRequest()}>Tạo Thanh Toán</Button>}
+            </DialogActions>
+          </DialogActions>
+        </Dialog>
+      )}
+      {selectedRow && (
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+          <Button
+            variant="contained"
+            sx={{ width: "20%", bgcolor: "#FFCF63" }}
+            onClick={() => void handleOpenCreatePayment()}
+          >
+            Tạo Thanh Toán
+          </Button>
+        </Box>
       )}
     </Box>
   );
