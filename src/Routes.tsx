@@ -8,6 +8,7 @@ import PaymentRequests from "./pages/PaymentRequests";
 import InsuranceApproval from "./pages/employee/InsuranceApproval";
 import ApprovedInsurancePolicies from "./pages/employee/ApprovedInsurancePolicies";
 import AllPaymentRequests from "./pages/employee/AllPaymentRequests";
+import CustomerList from "./pages/employee/customer";
 
 function Routes() {
   return (
@@ -21,6 +22,7 @@ function Routes() {
       <Route path="/employee/list-requirement" element={<InsuranceApproval />} />
       <Route path="/employee/list-approved-policy" element={<ApprovedInsurancePolicies />} />
       <Route path="/employee/list-payment-request" element={<AllPaymentRequests />} />
+      <Route path="/employee/list-customer" element={<CustomerList />} />
     </ReactRouterDomRoutes>
   );
 }

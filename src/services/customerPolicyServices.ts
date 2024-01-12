@@ -22,4 +22,9 @@ const issueCustomerPolicy = async (body: issueCustomerPolicyBody) => {
   return await postMethod("/CustomerPolicy/Issue", body);
 };
 
-export { getCustomerPolicy, rejectCustomerPolicy, issueCustomerPolicy };
+// /CustomerPolicy/list-policy?id=2
+const getListCustomerPolicy = async (customerId: number) => {
+  const response = await getMethod("/CustomerPolicy/list-policy?id=" + customerId);
+  return response;
+};
+export { getCustomerPolicy, rejectCustomerPolicy, issueCustomerPolicy, getListCustomerPolicy };
