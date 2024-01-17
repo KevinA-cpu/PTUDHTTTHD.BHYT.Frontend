@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Container,
      Grid,
      Typography
@@ -98,7 +98,7 @@ function InsuranceForm1(): JSX.Element {
 
 
 
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                         <Select
                             name='gender'
                             label='Giới tính'
