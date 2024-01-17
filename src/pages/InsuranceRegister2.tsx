@@ -1,9 +1,6 @@
 import InsuranceForm2 from '../components/InsuranceForm2'
 import { Typography,  Container } from "@mui/material";
 
-
-
-
 function InsuranceRegister2(): JSX.Element {
 
     return(
