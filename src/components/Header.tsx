@@ -25,6 +25,7 @@ function Header(): JSX.Element {
     setAccount(null);
     setToken(null);
     setAnchorEl(null);
+    navigate("/login");
   };
 
   const handleNavigate = (path: string) => {

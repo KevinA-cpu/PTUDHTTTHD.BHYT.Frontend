@@ -1,9 +1,8 @@
 import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import CommonProfile from "../components/Profile/CommonInfor";
+import GeneralProfile from "../components/Profile/GenneralInfor";
 import HealthIndicator from "../components/Profile/HealthIndicator";
 import InsurancePolicies from "../components/Profile/InsurancePolicies";
 interface TabPanelProps {
@@ -23,11 +22,7 @@ function TabPanel(props: TabPanelProps) {
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 }
@@ -39,7 +34,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function ProfileCustom() {
+export default function UserProfile() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -65,11 +60,11 @@ export default function ProfileCustom() {
       >
         <Tab label="Thôn tin chung" {...a11yProps(0)} />
         <Tab label="Chỉ số sức khỏe" {...a11yProps(1)} />
-        <Tab label="Bảo hiểm" {...a11yProps(2)} />
+        <Tab label="Bảo hiểm của tôi" {...a11yProps(2)} />
         <Tab label="Tài khoản" {...a11yProps(3)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        <CommonProfile />
+        <GeneralProfile />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <HealthIndicator />
