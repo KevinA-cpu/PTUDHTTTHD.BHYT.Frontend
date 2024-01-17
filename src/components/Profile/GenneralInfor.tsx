@@ -18,6 +18,8 @@ import * as userServices from "../../services/userServices";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { format } from "date-fns";
+import { getBankInfor } from "../../helpers/bank";
+
 interface UserInformation {
   id: number;
   fullname: string;
@@ -30,8 +32,10 @@ interface UserInformation {
   bank: string | null;
 }
 
-export default function CommonProfile(): JSX.Element {
+export default function GeneralProfile(): JSX.Element {
   const [userProfile, setUserProfile] = useState<UserInformation>();
+  const [banks, setBannks] = useState<any>(null);
+
   const account = useStore((state: any) => state.account);
   const formik = useFormik({
     initialValues: {
@@ -53,7 +57,6 @@ export default function CommonProfile(): JSX.Element {
 
     onSubmit: async (values) => {
       try {
-        console.log("values: ", values);
         const res = await userServices.updateProfile(values);
         alert(res.message);
       } catch (error) {
@@ -63,10 +66,23 @@ export default function CommonProfile(): JSX.Element {
   });
 
   useEffect(() => {
+    void getBankIn4();
+  }, []);
+
+  useEffect(() => {
     if (account) {
       void getUserProfile(account.id);
     }
   }, [account]);
+
+  const getBankIn4 = async () => {
+    try {
+      const response = await getBankInfor();
+      setBannks(response);
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
 
   const getUserProfile = async (id: number) => {
     try {
@@ -194,9 +210,14 @@ export default function CommonProfile(): JSX.Element {
                     {...formik.getFieldProps("bank")}
                     onChange={formik.handleChange}
                   >
-                    <MenuItem value={"Agribank"}>Agribank</MenuItem>
-                    <MenuItem value={"ABC"}>ABC</MenuItem>
-                    <MenuItem value={"BIDV"}>BIDV</MenuItem>
+                    {banks.map((row: any, index: any) => {
+                      return (
+                        <MenuItem key={index} value={row.short_name}>
+                          {row.short_name}
+                          <img src={row.logo} alt="logo" width={80} height={35} />
+                        </MenuItem>
+                      );
+                    })}
                   </Select>
                 </FormControl>
               </Stack>

@@ -8,8 +8,8 @@ import ConfirmDialog from "../../components/ConfirmDialog";
 import * as customerPolicyServices from "../../services/customerPolicyServices";
 import { useStore } from "../../app/store";
 import { Stack } from "@mui/system";
-import PersonOffIcon from "@mui/icons-material/PersonOff";
 import HourglassTopIcon from "@mui/icons-material/HourglassTop";
+import { useNavigate } from "react-router-dom";
 
 interface InsuranceData {
   id: number;
@@ -34,6 +34,7 @@ function InsurancePolicies(): JSX.Element {
   const [selectedRowList, setSelectedRowList] = useState<any>([]);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const userId = useStore((state: any) => state.userId);
+  const navigate = useNavigate();
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "Mã CS", flex: 0.5, align: "left" },
@@ -106,32 +107,48 @@ function InsurancePolicies(): JSX.Element {
         open={openConfirmDialog}
         onClose={handleCloseConfirmDialog}
         title="Xác nhận"
-        message="Bạn có chắc chắn muốn disable trạng thái các khách hàng đã chọn ?"
+        message="Bạn có chắc chắn muốn yêu cầu hủy các chính sách đã chọn ?"
         onConfirm={() => {
-          alert("dededed");
+          alert("test, chưa xử lý logic");
         }}
       />
       {selectedRowList.length != 0 ? (
         <Box py={1} px={1} sx={{ width: "100%", background: "rgba(25, 118, 210, 0.12)" }}>
           <Stack spacing={3} direction="row">
             <Button
-            // onClick={() => {
-            //   void handleDisplayPurchasedPolicies();
-            // }}
+              onClick={() => {
+                if (selectedRowList.length > 1) {
+                  alert("chọn một chính sách để yêu cầu bồi thường!");
+                } else {
+                  navigate(`/compensation-request/policy?id=${1}`);
+                }
+                ///void handleCompensationClick();
+              }}
             >
               Yêu cầu bồi thường
             </Button>
-            <Button>Gia hạn</Button>
-            <Button>Yêu cầu hủy</Button>
+            <Button
+              onClick={() => {
+                if (selectedRowList.length > 1) {
+                  alert("chọn một chính sách để yêu cầu gia hạn!");
+                }
+                //void handlePolicyExtension();
+              }}
+            >
+              Gia hạn/ Nâng cấp
+            </Button>
+            <Button
+              onClick={() => {
+                setOpenConfirmDialog(true);
+                // void handleCancelPolicyClick();
+              }}
+            >
+              Yêu cầu hủy CS
+            </Button>
 
             <Tooltip title="More detail">
               <IconButton>
                 <InfoIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="disable khách hàng">
-              <IconButton>
-                <PersonOffIcon />
               </IconButton>
             </Tooltip>
           </Stack>
