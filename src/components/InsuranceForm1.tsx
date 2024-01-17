@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Container, Grid, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
@@ -77,7 +77,7 @@ function InsuranceForm1(): JSX.Element {
               <TextField name="lastName" label="Tên" />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <Select name="gender" label="Giới tính" options={gender} />
             </Grid>
 
