@@ -120,7 +120,7 @@ function InsurancePolicies(): JSX.Element {
                 if (selectedRowList.length > 1) {
                   alert("chọn một chính sách để yêu cầu bồi thường!");
                 } else {
-                  navigate(`/compensation-request/policy?id=${1}`);
+                  navigate(`/compensation-request/policy/${selectedRowList[0]}`);
                 }
                 ///void handleCompensationClick();
               }}

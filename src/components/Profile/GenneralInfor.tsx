@@ -153,6 +153,9 @@ export default function GeneralProfile(): JSX.Element {
                   label="Ngày Sinh"
                   fullWidth
                   required
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                   {...formik.getFieldProps("birthday")}
                   onChange={formik.handleChange}
                 />
