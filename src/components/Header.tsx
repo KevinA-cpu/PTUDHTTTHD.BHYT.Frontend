@@ -73,7 +73,7 @@ function Header(): JSX.Element {
                 </MenuItem>
 
                 <MenuItem onClick={() => handleNavigate("/employee/list-payment-request")}>
-                  Thanhh toán của khách hàng
+                  Thanh toán của khách hàng
                 </MenuItem>
                 <MenuItem onClick={() => handleNavigate("/employee/list-customer")}>Danh sách khách hàng</MenuItem>
 

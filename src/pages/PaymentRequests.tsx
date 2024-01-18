@@ -173,7 +173,7 @@ function PaymentRequests(): JSX.Element {
             </Button>
           </Box>
         </Modal>
-        {!selectedRow?.status && (
+        {selectedRow && !selectedRow?.status && (
           <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
             <Button variant="contained" sx={{ width: "20%", bgcolor: "#FFCF63" }} onClick={() => void handlePayment()}>
               Thanh Toán
