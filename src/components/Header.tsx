@@ -33,7 +33,7 @@ function Header(): JSX.Element {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "darkblue" }}>
+    <AppBar position="static" sx={{ backgroundColor: "#C6B09F" }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: "2rem" }}>
           <Link to="/">
@@ -73,6 +73,18 @@ function Header(): JSX.Element {
               <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
                 <MenuItem onClick={handleClose}>{account.username}</MenuItem>
                 <MenuItem onClick={() => handleNavigate("/payment-requests")}>Yêu cầu thanh toán</MenuItem>
+
+                <MenuItem onClick={() => handleNavigate("/employee/list-requirement")}>Yêu cầu bảo hiểm</MenuItem>
+
+                <MenuItem onClick={() => handleNavigate("/employee/list-approved-policy")}>
+                  Chính sách phát hành
+                </MenuItem>
+
+                <MenuItem onClick={() => handleNavigate("/employee/list-payment-request")}>
+                  Thanhh toán của khách hàng
+                </MenuItem>
+                <MenuItem onClick={() => handleNavigate("/employee/list-customer")}>Danh sách khách hàng</MenuItem>
+
                 <Divider />
                 <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
               </Menu>

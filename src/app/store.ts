@@ -1,9 +1,9 @@
 import { create } from "zustand";
+import { getFromLocalStorage } from "../helpers/localStorage";
 
 interface IToken {
   accessToken: string;
   expiredAt: string;
-  issuedAt: string;
   refreshToken: string;
 }
 
@@ -19,11 +19,13 @@ interface IState {
   setAccount: (account: IAccount | null) => void;
 }
 
-export const useStore = create<IState>((set) => ({
-  token: null,
-  account: null,
+export const useStore = create<IState>()((set) => ({
+  token: {
+    accessToken: getFromLocalStorage("token"),
+    expiredAt: getFromLocalStorage("expiredAt"),
+    refreshToken: getFromLocalStorage("refreshToken"),
+  },
+  account: getFromLocalStorage("account"),
   setToken: (token) => set((state) => ({ ...state, token })),
   setAccount: (account) => set((state) => ({ ...state, account })),
 }));
-
-export default useStore;

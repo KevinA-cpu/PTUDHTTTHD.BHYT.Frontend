@@ -15,8 +15,8 @@ class AuthService {
       const response = await postMethod("/Login", data);
       setToLocalStorage("token", response.token.accessToken);
       setToLocalStorage("expiredAt", response.token.expiredAt);
-      localStorage.setItem("username", utf8_to_b64(username));
       setToLocalStorage("refreshToken", response.token.refreshToken);
+      setToLocalStorage("account", response.account);
 
       setAuthHeader(response.token.accessToken);
 
