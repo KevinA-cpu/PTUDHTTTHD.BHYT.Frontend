@@ -10,6 +10,7 @@ import ApprovedInsurancePolicies from "./pages/employee/ApprovedInsurancePolicie
 import AllPaymentRequests from "./pages/employee/AllPaymentRequests";
 import CustomerList from "./pages/employee/Customer";
 import UserProfile from "./pages/UserProfile";
+import CompensationRequest from "./pages/CompensationRequest";
 function Routes() {
   return (
     <ReactRouterDomRoutes>
@@ -19,6 +20,7 @@ function Routes() {
       <Route path="/forgot-password/otp" element={<OTP />} />
       <Route path="/register-insurance/infor" element={<InsuranceInformation />} />
       <Route path="/payment-requests" element={<PaymentRequests />} />
+      <Route path="/compensation-request/policy/:id" element={<CompensationRequest />} />
       <Route path="/user/profile" element={<UserProfile />} />
       <Route path="/employee/list-requirement" element={<InsuranceApproval />} />
       <Route path="/employee/list-approved-policy" element={<ApprovedInsurancePolicies />} />
