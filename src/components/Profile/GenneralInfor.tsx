@@ -18,8 +18,7 @@ import * as userServices from "../../services/userServices";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { format } from "date-fns";
-import { getBankInfor } from "../../helpers/bank";
-
+import * as bankServices from "../../services/bankServices";
 interface UserInformation {
   id: number;
   fullname: string;
@@ -77,7 +76,7 @@ export default function GeneralProfile(): JSX.Element {
 
   const getBankIn4 = async () => {
     try {
-      const response = await getBankInfor();
+      const response = await bankServices.getBankInfor();
       setBannks(response);
     } catch (error: any) {
       alert(error.message);
