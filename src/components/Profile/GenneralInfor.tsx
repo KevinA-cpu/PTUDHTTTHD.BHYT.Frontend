@@ -56,6 +56,7 @@ export default function GeneralProfile(): JSX.Element {
 
     onSubmit: async (values) => {
       try {
+        console.log(values);
         const res = await userServices.updateProfile(values);
         alert(res.message);
       } catch (error) {

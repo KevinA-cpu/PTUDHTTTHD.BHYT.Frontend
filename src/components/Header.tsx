@@ -8,7 +8,7 @@ import AuthService from "../services/authServices";
 
 function Header(): JSX.Element {
   const navigate = useNavigate();
-  const { setAccount, setToken, account } = useStore((state) => state);
+  const { setAccount, setToken, account, userId } = useStore((state) => state);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -77,6 +77,12 @@ function Header(): JSX.Element {
                   Thanh toán của khách hàng
                 </MenuItem>
                 <MenuItem onClick={() => handleNavigate("/employee/list-customer")}>Danh sách khách hàng</MenuItem>
+                <MenuItem onClick={() => handleNavigate(`/compensation-request/customer/${userId}`)}>
+                  DS Yêu cầu bồi thường
+                </MenuItem>
+                <MenuItem onClick={() => handleNavigate("/compensation-request/approval")}>
+                  Duyệt Yêu cầu bồi thường
+                </MenuItem>
                 <MenuItem onClick={() => handleNavigate("/user/profile")}>Profile</MenuItem>
 
                 <Divider />
