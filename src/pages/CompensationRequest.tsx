@@ -15,7 +15,7 @@ import { useParams } from "react-router-dom";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
-
+import { useStore } from "../app/store";
 import * as compensationServices from "../services/compensationServices";
 const steps = [
   {
@@ -55,7 +55,7 @@ export default function CompensationRequest() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const navigate = useNavigate();
-
+  const userId = useStore((state: any) => state.userId);
   const defaultValues = {
     policyId: Number(id),
     date: new Date(),
@@ -115,7 +115,7 @@ export default function CompensationRequest() {
         color="secondary"
         size="small"
         onClick={() => {
-          navigate(`/compensation-request/list`);
+          navigate(`/compensation-request/customer/${userId}`);
         }}
       >
         Xem yêu cầu

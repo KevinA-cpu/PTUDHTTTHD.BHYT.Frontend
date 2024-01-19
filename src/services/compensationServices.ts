@@ -1,4 +1,4 @@
-import { postMethod } from "../helpers/api";
+import { getMethod, postMethod } from "../helpers/api";
 
 interface ICompensationRequest {
   policyId: number;
@@ -18,4 +18,14 @@ const insertCompensation = async (data: ICompensationRequest) => {
   return response;
 };
 
-export { insertCompensation };
+const getCompensationRequestOfCustomer = async (customerId: number) => {
+  const response = await getMethod("/Compensation/request?customerId=" + customerId);
+  return response;
+};
+
+const updateCompensationStatus = async (data: any) => {
+  const response = await postMethod("/Compensation/update-status", data);
+  return response;
+};
+
+export { insertCompensation, getCompensationRequestOfCustomer, updateCompensationStatus };

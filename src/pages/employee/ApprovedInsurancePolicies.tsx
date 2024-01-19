@@ -36,8 +36,11 @@ function ApprovedInsurancePolicies(): JSX.Element {
   const [paymentRequest, setPaymentRequest] = useState<any>(null);
   const [openCreatePayment, setOpenCreatePayment] = useState(false);
   const [amount, setAmout] = useState<number>(0);
+  const [selectedRow, setSelectedRow] = useState<any>(null);
+
   const columns: GridColDef[] = [
-    { field: "customerId", headerName: "Mã khách hàng", flex: 0.5, align: "center" },
+    { field: "policyId", headerName: "Mã CS", flex: 0.35, align: "center" },
+    { field: "customerId", headerName: "Mã khách hàng", flex: 0.65, align: "center" },
     { field: "customerName", headerName: "Tên khách hàng", flex: 1 },
     { field: "insuranceName", headerName: "Gói bảo hiểm", flex: 1 },
     { field: "paymentOpption", headerName: "Kỳ trả", flex: 0.5 },
@@ -64,7 +67,6 @@ function ApprovedInsurancePolicies(): JSX.Element {
       },
     },
   ];
-  const [selectedRow, setSelectedRow] = useState<any>(null);
   useEffect(() => {
     void getApprovedPolicyList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,7 +76,6 @@ function ApprovedInsurancePolicies(): JSX.Element {
     try {
       const response = await insuranceApprovalServices.getApprovedPolicyList();
       setApprovedPolicyList(response);
-      // console.log("HHHHHHHHHL: ", approvedPolicyList);
     } catch (error: any) {
       alert(error.message);
     }
