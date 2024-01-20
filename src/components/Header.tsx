@@ -5,12 +5,21 @@ import { AccountCircle } from "@mui/icons-material";
 import logo from "../assets/images/logo.png";
 import { useStore } from "../app/store";
 import AuthService from "../services/authServices";
+import { b64_to_utf8 } from "../services/authServices";
 
 function Header(): JSX.Element {
   const navigate = useNavigate();
   const { setAccount, setToken, account, userId } = useStore((state) => state);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
+  let role = "customer";
+  if (account) {
+    const localStorageRole = localStorage.getItem("role");
+    if (localStorageRole) {
+      role = b64_to_utf8(localStorageRole);
+    }
+  }
 
   const handleMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -65,25 +74,31 @@ function Header(): JSX.Element {
               </IconButton>
               <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
                 <MenuItem onClick={handleClose}>{account.username}</MenuItem>
-                <MenuItem onClick={() => handleNavigate("/payment-requests")}>Yêu cầu thanh toán</MenuItem>
+                {role === "customer" && (
+                  <>
+                    <MenuItem onClick={() => handleNavigate("/user/profile")}>Profile</MenuItem>
+                    <MenuItem onClick={() => handleNavigate("/payment-requests")}>Yêu cầu thanh toán</MenuItem>
+                    <MenuItem onClick={() => handleNavigate(`/compensation-request/customer/${userId}`)}>
+                      DS Yêu cầu bồi thường
+                    </MenuItem>
+                  </>
+                )}
 
-                <MenuItem onClick={() => handleNavigate("/employee/list-requirement")}>Yêu cầu bảo hiểm</MenuItem>
-
-                <MenuItem onClick={() => handleNavigate("/employee/list-approved-policy")}>
-                  Chính sách phát hành
-                </MenuItem>
-
-                <MenuItem onClick={() => handleNavigate("/employee/list-payment-request")}>
-                  Thanh toán của khách hàng
-                </MenuItem>
-                <MenuItem onClick={() => handleNavigate("/employee/list-customer")}>Danh sách khách hàng</MenuItem>
-                <MenuItem onClick={() => handleNavigate(`/compensation-request/customer/${userId}`)}>
-                  DS Yêu cầu bồi thường
-                </MenuItem>
-                <MenuItem onClick={() => handleNavigate("/compensation-request/approval")}>
-                  Duyệt Yêu cầu bồi thường
-                </MenuItem>
-                <MenuItem onClick={() => handleNavigate("/user/profile")}>Profile</MenuItem>
+                {role === "employee" && (
+                  <>
+                    <MenuItem onClick={() => handleNavigate("/employee/list-requirement")}>Yêu cầu bảo hiểm</MenuItem>
+                    <MenuItem onClick={() => handleNavigate("/employee/list-approved-policy")}>
+                      Chính sách phát hành
+                    </MenuItem>
+                    <MenuItem onClick={() => handleNavigate("/employee/list-payment-request")}>
+                      Thanh toán của khách hàng
+                    </MenuItem>
+                    <MenuItem onClick={() => handleNavigate("/employee/list-customer")}>Danh sách khách hàng</MenuItem>
+                    <MenuItem onClick={() => handleNavigate("/compensation-request/approval")}>
+                      Duyệt Yêu cầu bồi thường
+                    </MenuItem>
+                  </>
+                )}
 
                 <Divider />
                 <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>

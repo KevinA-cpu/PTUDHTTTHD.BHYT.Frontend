@@ -5,6 +5,10 @@ import { setToLocalStorage } from "../helpers/localStorage";
 function utf8_to_b64(str: string): string {
   return window.btoa(unescape(encodeURIComponent(str)));
 }
+
+export function b64_to_utf8(str: string): string {
+  return decodeURIComponent(escape(window.atob(str)));
+}
 class AuthService {
   async login(username: string, password: string) {
     const data = {
