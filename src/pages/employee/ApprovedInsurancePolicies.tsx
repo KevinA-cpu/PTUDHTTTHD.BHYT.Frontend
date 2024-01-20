@@ -98,7 +98,7 @@ function ApprovedInsurancePolicies(): JSX.Element {
         Amount: amount,
         Status: false,
         Type: "Thanh toán",
-        Note: `Thanh toán cho gói ${selectedRow.row.insuranceName}`,
+        Note: selectedRow.row.insuranceName,
       });
       alert("Tạo thanh toán thành công");
       setOpenCreatePayment(false);

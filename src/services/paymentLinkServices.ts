@@ -5,4 +5,9 @@ const createPaymentLink = async (id: string, data: any) => {
   return response;
 };
 
-export { createPaymentLink };
+const cancelSubscription = async (id: string) => {
+  const response = await postMethod("/PaymentLink/cancel", id);
+  return response;
+};
+
+export { createPaymentLink, cancelSubscription };
