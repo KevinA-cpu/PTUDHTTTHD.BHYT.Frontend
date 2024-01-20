@@ -53,8 +53,6 @@ export default function MultipleSelectChip(props: MultipleSelectChipProps) {
       target: { value },
     } = event;
     setDisease(typeof value === "string" ? value.split(",") : value);
-
-    console.log("values: ", value);
   };
 
   useEffect(() => {
@@ -64,8 +62,8 @@ export default function MultipleSelectChip(props: MultipleSelectChipProps) {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: "100%" }}>
-        <InputLabel id="demo-multiple-chip-label">Các bệnh mắc phải</InputLabel>
+      <FormControl sx={{ width: "100%" }}>
+        <InputLabel id="demo-multiple-chip-label">Cập nhật bệnh</InputLabel>
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
@@ -74,7 +72,7 @@ export default function MultipleSelectChip(props: MultipleSelectChipProps) {
           value={disease}
           onChange={handleChange}
           rows={4}
-          input={<OutlinedInput id="select-multiple-chip" label="Các bệnh mắc phải" />}
+          input={<OutlinedInput id="select-multiple-chip" label="Cập nhật bệnh" />}
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((value) => (

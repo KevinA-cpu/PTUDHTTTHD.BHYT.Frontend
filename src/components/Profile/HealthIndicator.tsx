@@ -1,7 +1,7 @@
 import { CheckBox } from "@mui/icons-material";
 import { Button, Divider, FormControlLabel, TextField, Typography } from "@mui/material";
 import { Box, Container, Stack } from "@mui/system";
-import MultipleSelectChip from "./test";
+import MultipleSelectChip from "./MultipleSelectChip";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -14,9 +14,9 @@ interface IHealthIndicator {
   weight?: number;
   cholesterol?: number;
   bmi?: number;
-  bpm?: number | null;
-  respiratoryRate?: number | null;
-  diseases?: string | null;
+  bpm?: number;
+  respiratoryRate?: number;
+  diseases?: string;
 }
 
 export default function HealthIndicator(): JSX.Element {
@@ -46,8 +46,7 @@ export default function HealthIndicator(): JSX.Element {
         } else {
           values.diseases = "";
         }
-        console.log(values);
-        const res = await healthIndicatorServices.updateProfile(values);
+        const res = await healthIndicatorServices.updateHealthIndicator(values);
         alert(res.message);
       } catch (error) {
         console.log("update health indicator failed");
@@ -63,7 +62,7 @@ export default function HealthIndicator(): JSX.Element {
 
   const gethealthIndicator = async (id: number) => {
     try {
-      const response = await healthIndicatorServices.getProfile(id);
+      const response = await healthIndicatorServices.getHealthIndicator(id);
       setHealthIndicator(response);
       void formik.setValues({
         customerId: response.customerId,
@@ -99,11 +98,10 @@ export default function HealthIndicator(): JSX.Element {
       {healthIndicator && (
         <Container sx={{ marginTop: "3rem", marginBottom: "3rem" }}>
           <Box sx={{ mx: 5 }}>
-            <form>
+            <form onSubmit={formik.handleSubmit}>
               <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
                 <TextField
                   type="number"
-                  variant="outlined"
                   color="secondary"
                   label="Chiều cao (cm)"
                   fullWidth
@@ -113,7 +111,6 @@ export default function HealthIndicator(): JSX.Element {
                 />
                 <TextField
                   type="number"
-                  variant="outlined"
                   color="secondary"
                   label="Cân nặng (kg)"
                   fullWidth
@@ -123,7 +120,6 @@ export default function HealthIndicator(): JSX.Element {
                 />
                 <TextField
                   type="number"
-                  variant="outlined"
                   color="secondary"
                   label="Cholesterol (mg/dL)"
                   fullWidth
@@ -134,7 +130,6 @@ export default function HealthIndicator(): JSX.Element {
               <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
                 <TextField
                   type="number"
-                  variant="outlined"
                   color="secondary"
                   label="Body Mass Index - BMI (kg/m²)"
                   fullWidth
@@ -144,16 +139,14 @@ export default function HealthIndicator(): JSX.Element {
                 />
                 <TextField
                   type="number"
-                  variant="outlined"
                   color="secondary"
-                  label="Nhịp tim (bpm)"
+                  label="Nhịp tim (BPM)"
                   fullWidth
                   {...formik.getFieldProps("bpm")}
                   onChange={formik.handleChange}
                 />
                 <TextField
                   type="number"
-                  variant="outlined"
                   color="secondary"
                   label="Respiratory Rate (lần/phút)"
                   fullWidth
@@ -162,8 +155,20 @@ export default function HealthIndicator(): JSX.Element {
                 />
               </Stack>
 
-              <MultipleSelectChip sendDiseases={updateDiseases}></MultipleSelectChip>
               <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+                <TextField
+                  type="text"
+                  label="Bệnh trước đó"
+                  multiline
+                  rows={2}
+                  fullWidth
+                  disabled
+                  {...formik.getFieldProps("diseases")}
+                  onChange={formik.handleChange}
+                />
+              </Stack>
+              <MultipleSelectChip sendDiseases={updateDiseases}></MultipleSelectChip>
+              <Stack spacing={2} direction="row" sx={{ marginBottom: 4, marginTop: 4 }}>
                 <FormControlLabel control={<CheckBox />} label="" />
                 <Typography variant="body1">
                   Tôi đồng ý cho BHYT Life Việt Nam sử dụng thông tin được cung cấp trên đây để phê duyệt và phân tích
