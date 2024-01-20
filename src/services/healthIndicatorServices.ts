@@ -11,14 +11,14 @@ interface HealthIndicator {
   diseases?: string | null;
 }
 
-const updateProfile = async (data: HealthIndicator) => {
+const updateHealthIndicator = async (data: HealthIndicator) => {
   const response = await postMethod("/HealthIndicator", data);
   return response;
 };
 
-const getProfile = async (userId: number) => {
+const getHealthIndicator = async (userId: number) => {
   const response = await getMethod("/HealthIndicator?userId=" + userId);
   return response;
 };
 
-export { updateProfile, getProfile };
+export { updateHealthIndicator, getHealthIndicator };

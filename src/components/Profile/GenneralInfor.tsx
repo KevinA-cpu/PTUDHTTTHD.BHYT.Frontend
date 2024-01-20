@@ -27,8 +27,8 @@ interface UserInformation {
   birthday: Date;
   sex: number;
   email: string;
-  bankNumber: string | null;
-  bank: string | null;
+  bankNumber: string | 0;
+  bank: string | 0;
 }
 
 export default function GeneralProfile(): JSX.Element {
@@ -56,7 +56,6 @@ export default function GeneralProfile(): JSX.Element {
 
     onSubmit: async (values) => {
       try {
-        console.log(values);
         const res = await userServices.updateProfile(values);
         alert(res.message);
       } catch (error) {
@@ -94,7 +93,7 @@ export default function GeneralProfile(): JSX.Element {
         address: response.address || "",
         phone: response.phone || "",
         birthday: response.birthday ? format(new Date(response.birthday), "yyyy-MM-dd") : "",
-        sex: response.sex,
+        sex: response.sex || undefined,
         email: response.email || "",
         bankNumber: response.bankNumber || "",
         bank: response.bank || "",
