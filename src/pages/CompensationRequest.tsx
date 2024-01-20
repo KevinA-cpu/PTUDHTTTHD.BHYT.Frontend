@@ -95,7 +95,6 @@ export default function CompensationRequest() {
   };
 
   useEffect(() => {
-    console.log("dedededed", activeStep, steps.length);
     if (activeStep === steps.length) {
       setIsDisabled(false);
     }
