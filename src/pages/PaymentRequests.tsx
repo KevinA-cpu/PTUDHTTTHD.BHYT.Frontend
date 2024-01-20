@@ -39,6 +39,7 @@ interface IPaymentRequestsDetails {
   amount: number;
   status: string;
   note: string;
+  subscriptionId: string;
 }
 
 function PaymentRequests(): JSX.Element {
@@ -83,10 +84,22 @@ function PaymentRequests(): JSX.Element {
       const response = await paymentLinkServices.createPaymentLink(account?.id ?? "", {
         Amount: selectedRow?.amount,
         ProductName: selectedRow?.note,
+        PaymentOption: customerPolicy?.paymentOption ? "month" : "year",
       });
       window.open(response.link);
     } catch (error: any) {
       alert(error.message);
+    }
+  };
+
+  const handleCancelSubscription = async () => {
+    try {
+      await paymentLinkServices.cancelSubscription(selectedRow?.subscriptionId ?? "");
+      setOpen(false);
+      await getPaymentRequest(account?.id ?? "");
+      alert("Hủy thanh toán thành công");
+    } catch (error: any) {
+      alert(error.response.data);
     }
   };
 
@@ -171,6 +184,15 @@ function PaymentRequests(): JSX.Element {
             >
               Close
             </Button>
+            {selectedRow?.subscriptionId && (
+              <Button
+                variant="contained"
+                onClick={() => void handleCancelSubscription()}
+                sx={{ marginTop: "1rem", width: "100%", bgcolor: "#FFCF63" }}
+              >
+                Hủy Thanh toán
+              </Button>
+            )}
           </Box>
         </Modal>
         {selectedRow && !selectedRow?.status && (
