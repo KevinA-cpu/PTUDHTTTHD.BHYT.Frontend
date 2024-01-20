@@ -42,7 +42,7 @@ function AllPaymentRequests(): JSX.Element {
   const account = useStore((state) => state.account);
   const [open, setOpen] = useState(false);
   const [insurancePayment, setInsurancePayment] = useState<IPaymentRequestsDetails[]>([]);
-  const [selectedRow, setSelectedRow] = useState<any>({});
+  const [selectedRow, setSelectedRow] = useState<any>(null);
 
   useEffect(() => {
     if (account) {
