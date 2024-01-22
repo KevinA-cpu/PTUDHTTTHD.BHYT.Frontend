@@ -21,8 +21,7 @@ interface IHealthIndicator {
 
 export default function HealthIndicator(): JSX.Element {
   const [diseases, setDiseases] = useState<string | string[]>();
-  const userId = useStore((state: any) => state.userId);
-  console.log("USERID: ", userId);
+  const account = useStore((state) => state.account);
   const [healthIndicator, setHealthIndicator] = useState<IHealthIndicator>();
 
   const formik = useFormik({
@@ -56,10 +55,10 @@ export default function HealthIndicator(): JSX.Element {
   });
 
   useEffect(() => {
-    if (userId) {
-      void gethealthIndicator(userId);
+    if (account) {
+      void gethealthIndicator(Number(account.userId));
     }
-  }, [userId]);
+  }, [account]);
 
   const gethealthIndicator = async (id: number) => {
     try {

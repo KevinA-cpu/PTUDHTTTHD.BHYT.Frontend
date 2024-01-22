@@ -9,8 +9,7 @@ import { b64_to_utf8 } from "../services/authServices";
 
 function Header(): JSX.Element {
   const navigate = useNavigate();
-  const { setAccount, setToken, account, userId } = useStore((state) => state);
-  //console.log(" account, userId : ", account, userId);
+  const { setAccount, setToken, setUserId, account } = useStore((state) => state);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -34,6 +33,7 @@ function Header(): JSX.Element {
     AuthService.logout();
     setAccount(null);
     setToken(null);
+    setUserId(null);
     setAnchorEl(null);
     navigate("/login");
   };
@@ -79,7 +79,7 @@ function Header(): JSX.Element {
                   <>
                     <MenuItem onClick={() => handleNavigate("/user/profile")}>Profile</MenuItem>
                     <MenuItem onClick={() => handleNavigate("/payment-requests")}>Yêu cầu thanh toán</MenuItem>
-                    <MenuItem onClick={() => handleNavigate(`/compensation-request/customer/${userId}`)}>
+                    <MenuItem onClick={() => handleNavigate(`/compensation-request/customer/${account.userId}`)}>
                       DS Yêu cầu bồi thường
                     </MenuItem>
                   </>

@@ -55,7 +55,8 @@ export default function CompensationRequest() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const navigate = useNavigate();
-  const userId = useStore((state: any) => state.userId);
+  const account = useStore((state) => state.account);
+
   const defaultValues = {
     policyId: Number(id),
     date: new Date(),
@@ -114,7 +115,11 @@ export default function CompensationRequest() {
         color="secondary"
         size="small"
         onClick={() => {
-          navigate(`/compensation-request/customer/${userId}`);
+          if (account) {
+            navigate(`/compensation-request/customer/${account.userId}`);
+          } else {
+            alert("UserId is null!");
+          }
         }}
       >
         Xem yêu cầu

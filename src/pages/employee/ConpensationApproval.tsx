@@ -37,7 +37,7 @@ interface ICompensation {
 }
 
 function ConpensationApproval(): JSX.Element {
-  const customerId = useStore((state: any) => state.userId);
+  const account = useStore((state) => state.account);
   const [conpensations, setCompensations] = useState<ICompensation[]>([]);
   const [open, setOpen] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -102,13 +102,15 @@ function ConpensationApproval(): JSX.Element {
   ];
 
   useEffect(() => {
-    void getconpensations();
+    if (account) {
+      void getconpensations();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getconpensations = async () => {
     try {
-      const response = await compensationServices.getCompensationRequestOfCustomer(customerId);
+      const response = await compensationServices.getCompensationRequestOfCustomer(Number(account?.userId));
       setCompensations(response);
     } catch (error: any) {
       console.log(error);

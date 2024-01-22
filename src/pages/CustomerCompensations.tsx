@@ -26,7 +26,7 @@ interface ICustomerCompensation {
 }
 
 function CustomerCompensations(): JSX.Element {
-  const customerId = useStore((state: any) => state.userId);
+  const account = useStore((state) => state.account);
   const [conpensations, setCompensations] = useState<ICustomerCompensation[]>([]);
   const [open, setOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
@@ -90,13 +90,15 @@ function CustomerCompensations(): JSX.Element {
     },
   ];
   useEffect(() => {
-    void getconpensations();
+    if (account) {
+      void getconpensations();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getconpensations = async () => {
     try {
-      const response = await compensatioServices.getCompensationRequestOfCustomer(customerId);
+      const response = await compensatioServices.getCompensationRequestOfCustomer(Number(account?.userId));
       setCompensations(response);
     } catch (error: any) {
       console.log(error);
