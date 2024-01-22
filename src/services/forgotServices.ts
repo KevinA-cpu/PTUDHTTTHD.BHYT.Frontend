@@ -30,4 +30,4 @@ const resetPassword = async (data: any) => {
   }
 };
 
-export { requestResetPassword ,resetPassword};
+export { requestResetPassword, resetPassword };

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import otp from "../assets/images/otp.png";
-import { requestResetPassword, resetPassword } from "../services/forgotServices";
+import { requestResetPassword } from "../services/forgotServices";
 import { useNavigate } from "react-router-dom";
 
 export default function OTP(): JSX.Element {
@@ -57,8 +57,8 @@ export default function OTP(): JSX.Element {
   const handleCheckOTP = () => {
     const newErrors = {};
 
-    if (codeOtp.trim() === '') {
-      newErrors.codeOtp = 'OTP is required';
+    if (codeOtp.trim() === "") {
+      newErrors.codeOtp = "OTP is required";
       if (otpSent != codeOtp) {
         setError({ codeOtp: "Mã xác thực không đúng" });
       }
@@ -77,13 +77,13 @@ export default function OTP(): JSX.Element {
 
   const handleEmail = () => {
     if (email.trim() === "") {
-      setError({ email: "Email is required" })
+      setError({ email: "Email is required" });
     } else if (!isEmailValid(email)) {
-      setError({ email: "Incorrect format" })
+      setError({ email: "Incorrect format" });
     } else {
       fetch();
     }
-  }
+  };
 
   return (
     <Box
@@ -123,7 +123,8 @@ export default function OTP(): JSX.Element {
                 name="otp"
                 onChange={(e) => setCodeOtp(e.target.value)}
                 error={Boolean(error.codeOtp)}
-                helperText={error.codeOtp} />
+                helperText={error.codeOtp}
+              />
               <Button
                 sx={{
                   backgroundColor: "#FFCF63",
@@ -147,12 +148,13 @@ export default function OTP(): JSX.Element {
                 variant="outlined"
                 sx={{
                   mb: 3,
-                  borderColor: error ? "red" : ""
+                  borderColor: error ? "red" : "",
                 }}
                 name="email"
                 onChange={(e) => setEmail(e.target.value)}
                 error={Boolean(error.email)}
-                helperText={error.email} />
+                helperText={error.email}
+              />
               <Button
                 sx={{
                   backgroundColor: "#FFCF63",
