@@ -1,6 +1,6 @@
 import { test, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import InsuranceInformation from "./InsuranceInfor";
+import InsuranceInformation from "../../components/InsuranceInfor";
 
 test("InsuranceInformation mounts properly", () => {
   render(<InsuranceInformation />);
