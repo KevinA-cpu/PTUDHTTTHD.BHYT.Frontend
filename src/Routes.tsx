@@ -13,6 +13,7 @@ import UserProfile from "./pages/UserProfile";
 import CompensationRequest from "./pages/CompensationRequest";
 import CustomerCompensations from "./pages/CustomerCompensations";
 import ConpensationApproval from "./pages/employee/ConpensationApproval";
+import ChangePassword from "./pages/ChangePassword";
 function Routes() {
   return (
     <ReactRouterDomRoutes>
@@ -30,6 +31,7 @@ function Routes() {
       <Route path="/employee/list-approved-policy" element={<ApprovedInsurancePolicies />} />
       <Route path="/employee/list-payment-request" element={<AllPaymentRequests />} />
       <Route path="/employee/list-customer" element={<CustomerList />} />
+      <Route path="/change-password" element={<ChangePassword />} />
     </ReactRouterDomRoutes>
   );
 }
