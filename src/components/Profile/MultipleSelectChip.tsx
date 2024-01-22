@@ -44,6 +44,7 @@ export default function MultipleSelectChip(props: MultipleSelectChipProps) {
   const theme = useTheme();
   const [disease, setDisease] = useState<string[]>([]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const sendData = (disease: string | string[]) => {
     props.sendDiseases(disease);
   };
@@ -56,7 +57,6 @@ export default function MultipleSelectChip(props: MultipleSelectChipProps) {
   };
 
   useEffect(() => {
-    console.log("deede: ", disease);
     sendData(disease);
   }, [disease, sendData]);
 

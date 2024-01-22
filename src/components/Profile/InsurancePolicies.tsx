@@ -33,7 +33,9 @@ function InsurancePolicies(): JSX.Element {
   const [policies, setPolicies] = useState<InsuranceData[]>([]);
   const [selectedRowList, setSelectedRowList] = useState<any>([]);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
-  const userId = useStore((state: any) => state.userId);
+  //const userId = useStore((state: any) => state.userId);
+  const account = useStore((state) => state.account);
+
   const navigate = useNavigate();
 
   const columns: GridColDef[] = [
@@ -73,10 +75,10 @@ function InsurancePolicies(): JSX.Element {
   ];
 
   useEffect(() => {
-    if (userId) {
-      void getPolicyList(userId);
+    if (account) {
+      void getPolicyList(Number(account.userId));
     }
-  }, [userId]);
+  }, [account]);
 
   const getPolicyList = async (userId: number) => {
     try {
