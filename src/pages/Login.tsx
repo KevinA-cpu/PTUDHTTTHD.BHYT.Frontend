@@ -111,7 +111,8 @@ function Login(): JSX.Element {
               />
               <Link
                 to="/forgot-password/otp"
-                style={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2, mt: 2 }}>
+                style={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2, mt: 2 }}
+              >
                 <FormControlLabel control={<Checkbox defaultChecked />} label="ghi nhớ mật khẩu" />
                 <Typography
                   sx={{
