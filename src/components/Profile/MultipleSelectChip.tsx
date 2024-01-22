@@ -58,7 +58,7 @@ export default function MultipleSelectChip(props: MultipleSelectChipProps) {
   useEffect(() => {
     console.log("deede: ", disease);
     sendData(disease);
-  }, [disease]);
+  }, [disease, sendData]);
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import { test, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import Register from "./Register";
+import Register from "../../pages/Register";
 
 test("Register mounts properly", () => {
   render(<Register />);
