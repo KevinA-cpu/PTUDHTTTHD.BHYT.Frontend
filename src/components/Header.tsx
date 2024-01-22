@@ -9,7 +9,7 @@ import { b64_to_utf8 } from "../services/authServices";
 
 function Header(): JSX.Element {
   const navigate = useNavigate();
-  const { setAccount, setToken, setUserId, account } = useStore((state) => state);
+  const { resetAccountAndToken, account } = useStore((state) => state);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -31,9 +31,7 @@ function Header(): JSX.Element {
 
   const handleLogout = () => {
     AuthService.logout();
-    setAccount(null);
-    setToken(null);
-    setUserId(null);
+    resetAccountAndToken();
     setAnchorEl(null);
     navigate("/login");
   };
