@@ -15,10 +15,10 @@ interface IAccount {
 interface IState {
   token: IToken | null;
   account: IAccount | null;
-  userId: number | null;
+  userId: string | null;
   setToken: (token: IToken | null) => void;
   setAccount: (account: IAccount | null) => void;
-  setUserId: (userId: number | null) => void;
+  setUserId: (userId: string | null) => void;
 }
 
 export const useStore = create<IState>()((set) => ({
