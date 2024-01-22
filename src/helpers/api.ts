@@ -49,7 +49,7 @@ async function putMethod(endpoint: string, data: any) {
 
 async function postMethod(endpoint: string, data: any, config?: any) {
   try {
-    if (!checkValidToken() && endpoint !== "/Login" && endpoint !== "Register") {
+    if (!checkValidToken() && endpoint != "/login/renew-token" && endpoint !== "/Login" && endpoint !== "Register") {
       await refreshToken();
     }
     const response = await axiosInstance.post(endpoint, data, config);

@@ -21,8 +21,7 @@ class AuthService {
       setToLocalStorage("expiredAt", response.token.expiredAt);
       setToLocalStorage("refreshToken", response.token.refreshToken);
       setToLocalStorage("account", response.account);
-      localStorage.setItem("userId", response.userId);
-
+      setToLocalStorage("userId", response.userId);
       setAuthHeader(response.token.accessToken);
 
       const userRole = await getMethod("/user/role", { username: `${username}` });

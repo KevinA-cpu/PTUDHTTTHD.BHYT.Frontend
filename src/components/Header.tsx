@@ -10,6 +10,7 @@ import { b64_to_utf8 } from "../services/authServices";
 function Header(): JSX.Element {
   const navigate = useNavigate();
   const { setAccount, setToken, account, userId } = useStore((state) => state);
+  //console.log(" account, userId : ", account, userId);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
