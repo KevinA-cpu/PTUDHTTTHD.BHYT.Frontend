@@ -18,7 +18,7 @@ interface IState {
   account: IAccount | null;
   setToken: (token: IToken | null) => void;
   setAccount: (account: IAccount | null) => void;
-  setUserId: (userId: string | null) => void;
+  resetAccountAndToken: () => void;
 }
 
 export const useStore = create<IState>()((set) => ({
@@ -30,5 +30,5 @@ export const useStore = create<IState>()((set) => ({
   account: getFromLocalStorage("account"),
   setToken: (token) => set((state) => ({ ...state, token })),
   setAccount: (account) => set((state) => ({ ...state, account })),
-  setUserId: (userId) => set((state) => ({ ...state, userId })),
+  resetAccountAndToken: () => set((state) => ({ ...state, account: null, token: null })),
 }));
