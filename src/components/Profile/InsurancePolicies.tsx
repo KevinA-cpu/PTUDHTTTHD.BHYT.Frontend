@@ -33,7 +33,6 @@ function InsurancePolicies(): JSX.Element {
   const [policies, setPolicies] = useState<InsuranceData[]>([]);
   const [selectedRowList, setSelectedRowList] = useState<any>([]);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
-  //const userId = useStore((state: any) => state.userId);
   const account = useStore((state) => state.account);
 
   const navigate = useNavigate();
@@ -124,7 +123,6 @@ function InsurancePolicies(): JSX.Element {
                 } else {
                   navigate(`/compensation-request/policy/${selectedRowList[0]}`);
                 }
-                ///void handleCompensationClick();
               }}
             >
               Yêu cầu bồi thường
@@ -134,7 +132,6 @@ function InsurancePolicies(): JSX.Element {
                 if (selectedRowList.length > 1) {
                   alert("chọn một chính sách để yêu cầu gia hạn!");
                 }
-                //void handlePolicyExtension();
               }}
             >
               Gia hạn/ Nâng cấp
@@ -142,7 +139,6 @@ function InsurancePolicies(): JSX.Element {
             <Button
               onClick={() => {
                 setOpenConfirmDialog(true);
-                // void handleCancelPolicyClick();
               }}
             >
               Yêu cầu hủy CS

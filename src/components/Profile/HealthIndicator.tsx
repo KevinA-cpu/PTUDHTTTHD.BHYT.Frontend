@@ -56,16 +56,16 @@ export default function HealthIndicator(): JSX.Element {
 
   useEffect(() => {
     if (account) {
-      void gethealthIndicator(Number(account.userId));
+      void gethealthIndicator(account.userId);
     }
   }, [account]);
 
-  const gethealthIndicator = async (id: number) => {
+  const gethealthIndicator = async (id: number | string) => {
     try {
       const response = await healthIndicatorServices.getHealthIndicator(id);
       setHealthIndicator(response);
       void formik.setValues({
-        customerId: response.customerId,
+        customerId: response.customerId || account?.userId,
         height: response.height || 0,
         weight: response.weight || 0,
         cholesterol: response.cholesterol || 0,

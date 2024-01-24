@@ -12,7 +12,7 @@ import CustomerList from "./pages/employee/Customer";
 import UserProfile from "./pages/UserProfile";
 import CompensationRequest from "./pages/CompensationRequest";
 import CustomerCompensations from "./pages/CustomerCompensations";
-import ConpensationApproval from "./pages/employee/ConpensationApproval";
+import CompensationApproval from "./pages/employee/CompensationApproval";
 import ChangePassword from "./pages/ChangePassword";
 function Routes() {
   return (
@@ -25,7 +25,7 @@ function Routes() {
       <Route path="/payment-requests" element={<PaymentRequests />} />
       <Route path="/compensation-request/policy/:id" element={<CompensationRequest />} />
       <Route path="/compensation-request/customer/:id" element={<CustomerCompensations />} />
-      <Route path="/compensation-request/approval" element={<ConpensationApproval />} />
+      <Route path="/compensation-request/approval" element={<CompensationApproval />} />
       <Route path="/user/profile" element={<UserProfile />} />
       <Route path="/employee/list-requirement" element={<InsuranceApproval />} />
       <Route path="/employee/list-approved-policy" element={<ApprovedInsurancePolicies />} />

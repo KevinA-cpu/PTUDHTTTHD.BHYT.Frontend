@@ -28,4 +28,9 @@ const updateCompensationStatus = async (data: any) => {
   return response;
 };
 
-export { insertCompensation, getCompensationRequestOfCustomer, updateCompensationStatus };
+const getCompensationRequests = async () => {
+  const response = await getMethod("/Compensation");
+  return response;
+};
+
+export { insertCompensation, getCompensationRequestOfCustomer, updateCompensationStatus, getCompensationRequests };
