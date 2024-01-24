@@ -36,7 +36,7 @@ interface ICompensation {
   status: boolean;
 }
 
-function ConpensationApproval(): JSX.Element {
+function CompensationApproval(): JSX.Element {
   const account = useStore((state) => state.account);
   const [conpensations, setCompensations] = useState<ICompensation[]>([]);
   const [open, setOpen] = useState(false);
@@ -110,7 +110,7 @@ function ConpensationApproval(): JSX.Element {
 
   const getconpensations = async () => {
     try {
-      const response = await compensationServices.getCompensationRequestOfCustomer(Number(account?.userId));
+      const response = await compensationServices.getCompensationRequests();
       setCompensations(response);
     } catch (error: any) {
       console.log(error);
@@ -312,4 +312,4 @@ function ConpensationApproval(): JSX.Element {
   );
 }
 
-export default ConpensationApproval;
+export default CompensationApproval;

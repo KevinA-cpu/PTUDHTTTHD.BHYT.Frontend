@@ -16,7 +16,7 @@ const updateHealthIndicator = async (data: HealthIndicator) => {
   return response;
 };
 
-const getHealthIndicator = async (userId: number) => {
+const getHealthIndicator = async (userId: number | string) => {
   const response = await getMethod("/HealthIndicator?userId=" + userId);
   return response;
 };

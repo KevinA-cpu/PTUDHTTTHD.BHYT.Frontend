@@ -129,15 +129,19 @@ function CustomerCompensations(): JSX.Element {
           Danh sách yêu cầu chỉ trả bảo hiểm
         </Typography>
 
-        <DataGrid
-          getRowId={(row) => row.guid}
-          rows={conpensations}
-          columns={columns}
-          onRowClick={(row) => {
-            console.log(row);
-            setSelectedRow(row);
-          }}
-        />
+        {conpensations.length >= 1 ? (
+          <DataGrid
+            getRowId={(row) => row.guid}
+            rows={conpensations}
+            columns={columns}
+            onRowClick={(row) => {
+              console.log(row);
+              setSelectedRow(row);
+            }}
+          />
+        ) : (
+          <Box height={300}>Hiện quý khách không có yêu cầu nào ! </Box>
+        )}
       </Box>
       {open && (
         <Dialog
