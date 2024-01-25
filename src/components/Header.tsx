@@ -9,7 +9,7 @@ import { b64_to_utf8 } from "../services/authServices";
 
 function Header(): JSX.Element {
   const navigate = useNavigate();
-  const { account } = useStore((state) => state); //
+  const { account, resetAccountAndToken } = useStore((state) => state); //
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -64,18 +64,23 @@ function Header(): JSX.Element {
 
         <Box sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <Button color="inherit">Trang chủ</Button>
-          <Button
-            component={Link}
-            to="/register-insurance-1"
-            color="inherit"
-            sx={{
-              "&:hover": {
-                backgroundColor: "gold",
-              },
-            }}
-          >
-            Đăng ký bảo hiểm
-          </Button>
+          {account ? (
+            <Button
+              component={Link}
+              to="/register-insurance-1"
+              color="inherit"
+              sx={{
+                "&:hover": {
+                  backgroundColor: "gold",
+                },
+              }}
+            >
+              Đăng ký bảo hiểm
+            </Button>
+          ) : (
+            <></>
+          )}
+
           <Button color="inherit">Thông tin</Button>
           {account ? (
             <>
