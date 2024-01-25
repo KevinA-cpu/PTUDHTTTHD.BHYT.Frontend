@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+
+import {  useNavigate } from "react-router-dom";
 import { Container,
      Grid,
      Typography
@@ -8,25 +8,11 @@ import { Form, Formik } from "formik";
 import * as Yup from 'yup'
 import TextField from './FormsUI/TextField'
 import Select from './FormsUI/Select'
-import DateTimePicker from "./FormsUI/DateTimePicker";
 import Checkbox from './FormsUI/Checkbox'
 import Button from './FormsUI/Button'
-import choice from "./data/choice.json"
-
-const INITIAL_FORM_STATE={
-    height:'',
-    weight:'',
-    BMI:'',
-    pulse:'',
-    bloodPressure1:'',
-    bloodPressure2:'',
-    disease1: '',
-    disease2:'',
-    choice1:'',
-    choice2:'',
-    drug:'',
-    pregnant:'',
-}
+import disease1 from "./data/disease1.json"
+import { useStore } from "../app/store";
+import * as healHistoryServices from "../services/healthHistoryServices";
 
 const FORM_VALIDATION=Yup.object().shape({
     height: Yup.number()
@@ -41,8 +27,8 @@ const FORM_VALIDATION=Yup.object().shape({
     .required('Yêu cầu nhập thông tin này'),
     bloodPressure2: Yup.number()
     .required('Yêu cầu nhập thông tin này'),
-    disease1: Yup.string(),
-    disease2: Yup.string(),
+    // disease1: Yup.string(),
+    // disease2: Yup.string(),
     choice1: Yup.string()
     .required('Vui lòng chọn thông tin'),
     choice2: Yup.string()
@@ -56,14 +42,61 @@ const FORM_VALIDATION=Yup.object().shape({
 
 
 function InsuranceForm2(): JSX.Element {
+    // const [selectState, setSelectState ] = useState('');
+    const nagivate = useNavigate()
+    const {  account } = useStore((state) => state)
+
+    // const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    //     // Lấy giá trị hiện tại từ thành phần input
+    //     const newValue: string = event.target.value;
+    //     console.log(newValue)
+    //     // Cập nhật state với giá trị mới
+    //     setSelectState(newValue);
+    //   };
+
+    const INITIAL_FORM_STATE={
+        customerId: account?.id,
+        height:'',
+        weight:'',
+        BMI:'',
+        pulse:'',
+        bloodPressure1:'',
+        bloodPressure2:'',
+        choice1:'',
+        choice2:'',
+        drug:'',
+        pregnant:'',
+    }
+    
     return(
         <Container maxWidth= 'md' >
         <Formik
             initialValues={{
             ...INITIAL_FORM_STATE}}
             validationSchema={FORM_VALIDATION}
-            onSubmit={values=>{
+            onSubmit={async (values) => {
                 console.log(values)
+                const data={
+                    customerId: values.customerId,
+                    height: Number(values.height),
+                    weight: Number(values.weight),
+                    bmi: Number(values.BMI),
+                    cholesterol: 0,
+                    bpm:0,
+                    respiratoryRate: Number(values.pulse),
+                    bloodPressure: values.bloodPressure1 +'/'+values.bloodPressure2,
+                    diseases:  values.choice2,
+                    drug:values.drug,
+                    pregnant:values.pregnant,
+                }
+                console.log(data)
+                try{
+                const response = await healHistoryServices.postCustomerHealthHistory(data);
+                }
+                catch (error: any) {
+                alert(error.message);
+                }
+                nagivate('/')
             }}
         >
             <Form>
@@ -78,20 +111,16 @@ function InsuranceForm2(): JSX.Element {
                         </Typography>
                     </Grid>
 
-                    <Grid item xs ={6}>
+                    <Grid item xs ={12}>
                     <Select
                             name='choice1'
                             label='Lựa chọn'
-                            options= {choice}
+                            options= {disease1}
+                            // onChange={handleInputChange}
                         />
                     </Grid>
 
-                    <Grid item xs ={6}>
-                        <TextField
-                        name ="disease1"
-                        label="Bệnh"
-                        />
-                    </Grid>
+    
 
                     <Grid item xs ={12}>
                         <Typography variant="h6">Tiền sử bản thân: </Typography>
@@ -103,18 +132,11 @@ function InsuranceForm2(): JSX.Element {
                         </Typography>
                     </Grid>
 
-                    <Grid item xs ={6}>
+                    <Grid item xs ={12}>
                     <Select
                             name='choice2'
                             label='Lựa chọn'
-                            options= {choice}
-                        />
-                    </Grid>
-
-                    <Grid item xs ={6}>
-                        <TextField
-                        name ="disease1"
-                        label="Bệnh"
+                            options= {disease1}
                         />
                     </Grid>
                     <Grid item xs ={12}>
@@ -225,9 +247,7 @@ function InsuranceForm2(): JSX.Element {
                     
                     <Grid item xs ={12} sx={{marginBottom:"50px"}}>
                         <Button 
-                        component={Link}
-                        to="/"
-                        variant="outlined"
+                     color= 'primary'
                         >
                             Hoàn thành
 

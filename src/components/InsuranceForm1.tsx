@@ -1,5 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Container, Grid, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
@@ -8,31 +7,17 @@ import Select from "./FormsUI/Select";
 import DateTimePicker from "./FormsUI/DateTimePicker";
 import Checkbox from "./FormsUI/Checkbox";
 import Button from "./FormsUI/Button";
-
+// import {Button} from "@mui/material";
 import countries from "./data/countries.json";
 import gender from "./data/gender.json";
-
-const INITIAL_FORM_STATE = {
-  firstName: "",
-  lastName: "",
-  gender: "",
-  dateOfBirth: "",
-  email: "",
-  phone: "",
-  addressLine1: "",
-  addressLine2: "",
-  city: "",
-  state: "",
-  country: "",
-  message: "",
-  termsOfService: false,
-};
+import { useStore } from "../app/store";
+import * as insuranceRegisterServices from "../services/insuranceRegisterServices";
 
 const FORM_VALIDATION = Yup.object().shape({
-  firstName: Yup.string().required("Yêu cầu nhập thông tin này"),
-  lastName: Yup.string().required("Yêu cầu nhập thông tin này"),
-  gender: Yup.string().required("Yêu cầu nhập thông tin này"),
-  dateOfBirth: Yup.date().required("Yêu cầu nhập trường này"),
+  fullName: Yup.string().required("Yêu cầu nhập thông tin này"),
+
+  sex: Yup.string().required("Yêu cầu nhập thông tin này"),
+  birthday: Yup.date().required("Yêu cầu nhập trường này"),
   email: Yup.string().email("Email không hợp lệ").required("Yêu cầu nhập thông tin này"),
   phone: Yup.number().integer().typeError("Vui lòng nhập số điện thoại hợp lệ").required("Yêu cầu nhập thông tin này"),
   addressLine1: Yup.string().required("Yêu cầu nhập thông tin này"),
@@ -52,6 +37,25 @@ const FORM_VALIDATION = Yup.object().shape({
 });
 
 function InsuranceForm1(): JSX.Element {
+  const navigate = useNavigate();
+  const { account } = useStore((state) => state);
+
+  const INITIAL_FORM_STATE = {
+    id: account?.id,
+    fullName: "",
+    sex: 0,
+    birthday: "",
+    email: "",
+    phone: "",
+    addressLine1: "",
+    addressLine2: "",
+    city: "",
+    state: "",
+    country: "",
+    message: "",
+    termsOfService: false,
+  };
+
   return (
     <Container maxWidth="md">
       <Formik
@@ -59,8 +63,26 @@ function InsuranceForm1(): JSX.Element {
           ...INITIAL_FORM_STATE,
         }}
         validationSchema={FORM_VALIDATION}
-        onSubmit={(values) => {
+        onSubmit={async (values) => {
           console.log(values);
+          const data = {
+            id: values.id,
+            fullName: values.fullName,
+            sex: Number(values.sex),
+            birthday: values.birthday,
+            email: values.email,
+            phone: values.phone,
+            address: values.addressLine1 + ", " + values.city + ", " + values.country,
+            bankNumber: "",
+            bank: "",
+          };
+          console.log(data);
+          try {
+            const response = await insuranceRegisterServices.createInsuranceRegister(data);
+            navigate(`/option`);
+          } catch (error: any) {
+            alert(error.message);
+          }
         }}
       >
         <Form>
@@ -69,20 +91,16 @@ function InsuranceForm1(): JSX.Element {
               <Typography variant="h6">Thông tin cá nhân</Typography>
             </Grid>
 
-            <Grid item xs={6}>
-              <TextField name="firstName" label="Họ" />
+            <Grid item xs={12}>
+              <TextField name="fullName" label="Họ và tên" />
             </Grid>
 
             <Grid item xs={6}>
-              <TextField name="lastName" label="Tên" />
+              <Select name="sex" label="Giới tính" options={gender} />
             </Grid>
 
             <Grid item xs={6}>
-              <Select name="gender" label="Giới tính" options={gender} />
-            </Grid>
-
-            <Grid item xs={6}>
-              <DateTimePicker name="dateOfBirth" label="Ngày sinh" />
+              <DateTimePicker name="birthday" label="Ngày sinh" />
             </Grid>
 
             <Grid item xs={12}>
@@ -130,9 +148,7 @@ function InsuranceForm1(): JSX.Element {
             </Grid>
 
             <Grid item xs={12} sx={{ marginBottom: "50px" }}>
-              <Button component={Link} to="/register-insurance-2" variant="outlined">
-                Tiếp theo
-              </Button>
+              <Button color="primary">Tiếp theo</Button>
             </Grid>
           </Grid>
         </Form>
