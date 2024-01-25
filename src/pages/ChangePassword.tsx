@@ -21,7 +21,7 @@ function ForgotPassword(): JSX.Element {
     if (!location?.state) {
       navigate("/login");
     }
-  }, [location?.state]);
+  }, [location?.state, navigate]);
 
   const handleReset = () => {
     const data = {
