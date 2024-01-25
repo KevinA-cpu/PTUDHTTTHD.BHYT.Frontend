@@ -4,5 +4,5 @@ import CustomerCompensations from "../../pages/CustomerCompensations";
 
 test("CustomerCompensation mounts properly", () => {
   render(<CustomerCompensations />);
-  expect(screen.getByText("Mã chính sách")).toBeInTheDocument();
+  expect(screen.getByText("Hiện quý khách không có yêu cầu nào !")).toBeInTheDocument();
 });

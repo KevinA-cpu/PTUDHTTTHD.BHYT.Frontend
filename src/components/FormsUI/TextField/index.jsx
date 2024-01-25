@@ -1,14 +1,8 @@
 import React from "react";
-import {TextField } from '@mui/material'
-import {useField  } from 'formik'
+import { TextField } from "@mui/material";
+import { useField } from "formik";
 
-
-
-const TextFieldWrapper =({
-    name,
-    ...otherProps
-})=>{
-
+const TextFieldWrapper = ({ name, ...otherProps }) => {
   const [field, meta] = useField(name);
 
   const configTextField = {
@@ -23,9 +17,7 @@ const TextFieldWrapper =({
     configTextField.helperText = meta.error;
   }
 
-  return <TextField {...configTextField} />;
-
+  return <TextField data-testId="text" {...configTextField} />;
 };
 
-export default TextFieldWrapper
-
+export default TextFieldWrapper;

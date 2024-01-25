@@ -1,36 +1,27 @@
-import React from 'react';
-import { TextField} from '@mui/material';
-import { useField } from 'formik';
+import React from "react";
+import { TextField } from "@mui/material";
+import { useField } from "formik";
 
+const DateTimePicker = ({ name, ...otherProps }) => {
+  const [field, meta] = useField(name);
 
-const DateTimePicker =({
-    name, 
-    ...otherProps
-})=>{
+  const configDateTimePicker = {
+    ...field,
+    ...otherProps,
+    type: "date",
+    variant: "outlined",
+    fullWidth: true,
+    InputLabelProps: {
+      shrink: true,
+    },
+  };
 
-    const [field, meta] = useField(name);
+  if (meta && meta.touched && meta.error) {
+    configDateTimePicker.error = true;
+    configDateTimePicker.helperText = meta.error;
+  }
 
-    const configDateTimePicker = {
-        ...field,
-        ...otherProps,
-        type: 'date',
-        variant: 'outlined',
-        fullWidth: true,
-        InputLabelProps:{
-            shrink: true
-        }
-    }
+  return <TextField data-testId="date" {...configDateTimePicker} />;
+};
 
-    if(meta && meta.touched && meta.error){
-        configDateTimePicker.error= true;
-        configDateTimePicker.helperText =meta.error;
-    }
-
-    return(
-        <TextField
-            {...configDateTimePicker}
-        />
-    )
-}
-
-export default DateTimePicker
+export default DateTimePicker;
