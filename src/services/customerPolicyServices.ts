@@ -28,7 +28,6 @@ const getListCustomerPolicy = async (customerId: number) => {
   return response;
 };
 
-
 // interface CustomerPolicy{
 //   id: number|null,
 //   customerId:string |undefined,
@@ -80,9 +79,9 @@ const getListCustomerPolicy = async (customerId: number) => {
 
 // public string? Company { get; set; }
 
-const createCustomerPolicy =async(body:any)=>{
-  console.log(body)
-  const response = await postMethod("/CustomerPolicy/add-new" , body);
+const createCustomerPolicy = async (body: any) => {
+  console.log(body);
+  const response = await postMethod("/CustomerPolicy/add-new", body);
   return response;
-}
-export { getCustomerPolicy, rejectCustomerPolicy, issueCustomerPolicy, getListCustomerPolicy ,createCustomerPolicy};
+};
+export { getCustomerPolicy, rejectCustomerPolicy, issueCustomerPolicy, getListCustomerPolicy, createCustomerPolicy };

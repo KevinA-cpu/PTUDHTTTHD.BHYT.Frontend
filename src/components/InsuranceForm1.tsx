@@ -78,7 +78,7 @@ function InsuranceForm1(): JSX.Element {
           };
           console.log(data);
           try {
-            const response = await insuranceRegisterServices.createInsuranceRegister(data);
+            await insuranceRegisterServices.createInsuranceRegister(data);
             navigate(`/option`);
           } catch (error: any) {
             alert(error.message);
