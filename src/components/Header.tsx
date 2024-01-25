@@ -8,7 +8,7 @@ import AuthService from "../services/authServices";
 
 function Header(): JSX.Element {
   const navigate = useNavigate();
-  const { setAccount, setToken, account } = useStore((state) => state);
+  const { setAccount, setToken, account } = useStore((state) => state);//
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
