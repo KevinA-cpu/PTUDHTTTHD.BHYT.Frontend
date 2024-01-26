@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardContent, Typography, CardActions, Button, CardMedia } from "@mui/material";
 import { useState } from "react";
-import InsuranceInformation from "./InsuranceInformation";
+import InsuranceInformation from "./InsuranceInfor";
 
 const styles = {
   borderRadius: "15px",
