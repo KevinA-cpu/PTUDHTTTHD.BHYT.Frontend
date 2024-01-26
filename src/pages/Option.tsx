@@ -57,16 +57,6 @@ function Option(): JSX.Element {
     setCardId(option.id);
   };
 
-  // const handleSubmit = () => {
-  //   // console.log(cardValue)
-  //   // console.log('test')
-  //   // if (cardValue) {
-  //   //     navigate(`/register-insurance-2`);
-  //   // }
-  //   // ?guid=${cardValue}
-  //   // navigate('/register-insurance-2')
-  // };
-
   useEffect(() => {
     void getInsuranceOption();
   }, []);

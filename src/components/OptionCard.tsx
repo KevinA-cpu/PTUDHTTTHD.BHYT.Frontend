@@ -1,12 +1,6 @@
-import { Card, CardHeader, CardContent, Typography, CardActions, Button, Modal, Box } from "@mui/material";
+import { Card, CardHeader, CardContent, Typography, CardActions, Button, CardMedia } from "@mui/material";
 import { useState } from "react";
-
-// interface Option{
-//     name: string,
-//     guid: string;
-//     // price: number,
-//     description: string
-// }
+import InsuranceInformation from "./InsuranceInformation";
 
 const styles = {
   borderRadius: "15px",
@@ -20,55 +14,47 @@ const styles = {
   },
 };
 
-const style = {
-  position: "absolute" as const,
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "1px solid gray",
-  boxShadow: 24,
-  p: 4,
-
-  // borderRadius: '10px'
-};
-
 function OptionCard({ option, handleClick }: any): JSX.Element {
-  const [open, setOpen] = useState(false);
+  const [openInfo, setOpenInfo] = useState(false);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+  const handleOpen = () => {
+    console.log("opdeijdede: ", option);
+    setOpenInfo(true);
+  };
+  const handleCloseInfo = () => setOpenInfo(false);
   return (
-    <Card tabIndex={0} sx={styles} onClick={handleClick}>
-      {/* <CardActionArea > */}
-      <CardHeader title={option.name} />
-      <CardContent>
-        <Typography variant="body2">{option.summary}</Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small" onClick={handleOpen}>
-          Xem chi tiết
-        </Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              {option.name}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {option.description}
-            </Typography>
-          </Box>
-        </Modal>
-      </CardActions>
-      {/* </CardActionArea> */}
-    </Card>
+    <>
+      <InsuranceInformation
+        openInfo={openInfo}
+        handleCloseInfo={() => handleCloseInfo()}
+        option={option}
+      ></InsuranceInformation>
+      <Card tabIndex={0} sx={styles} onClick={handleClick}>
+        <CardHeader title={option.name} />
+        <CardContent>
+          <Typography
+            fontWeight={600}
+            style={{ border: "1px solid #000", backgroundColor: "#feeee1", padding: "5px", borderRadius: "10px" }}
+          >
+            {option.price} VNĐ / Tháng
+          </Typography>
+        </CardContent>
+        <CardContent>
+          <Typography variant="body2">{option.summary}</Typography>
+        </CardContent>
+        <CardMedia
+          sx={{ height: 140 }}
+          image="https://images.pexels.com/photos/7821498/pexels-photo-7821498.jpeg?auto=compress&cs=tinysrgb&w=600"
+          title="green iguana"
+        />
+        <CardActions>
+          <Button size="small" onClick={handleOpen}>
+            Xem chi tiết
+          </Button>
+        </CardActions>
+        {/* </CardActionArea> */}
+      </Card>
+    </>
   );
 }
 
